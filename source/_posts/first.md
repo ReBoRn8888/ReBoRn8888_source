@@ -1,8 +1,8 @@
 ---
 title: first
 date: 2019-12-08 19:50:56
-tags:
-categories:
+tags: hexo
+categories: 教程
 top_img:
 cover:
 ---

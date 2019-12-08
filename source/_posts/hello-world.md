@@ -1,7 +1,7 @@
 ---
 title: Hello World
 date: 2019-12-07 19:50:56
-tags: hexo教程
+tags: hexo
 categories: 教程
 top_img:
 cover:
