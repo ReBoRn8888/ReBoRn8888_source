@@ -46,16 +46,23 @@ favicon: /img/favicon.ico
 # ---------------
 highlight_theme: light
 highlight_copy: true
+highlight_shrink: true #代碼框不展開，需點擊 '>' 打開
 
 code_word_wrap: false
+
+post_beautify:
+  enable: true
+  title-prefix-icon: '\f0c1'
+  title-prefix-icon-color: "#F47466"
 
 # Nav settings
 # formal: 
 #   icon: link
 # ---------------
 social:
-  fa fa-github: https://github.com/jerryc127
-  fa fa-rss: /atom.xml
+  fa fa-github: https://github.com/ReBoRn8888
+  # fa fa-envelope: 51174500068@stu.ecnu.edu.cn
+  # fa fa-rss: /atom.xml
 
 # Algolia search
 # ---------------
@@ -89,11 +96,15 @@ mathjax:
 # KaTeX
 # ---------------
 katex:
-  enable: false
+  enable: true
   cdn:
     css: https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css  
   hide_scrollbar: true
 
+CDN_USE:
+  css:
+    - https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css
+    - https://use.fontawesome.com/releases/v5.8.1/css/all.css
 
 
 # Analysis
@@ -137,7 +148,7 @@ avatar: https://i.loli.net/2019/12/07/5A7EoeY9HRTqfBF.jpg
 
 # the banner image of index
 # if the banner of another page not setting,it will show the top_img
-top_img: https://i.loli.net/2019/05/22/5ce53eb6dc82757840.jpg
+top_img: https://i.loli.net/2019/12/08/yMzEQ1RfwlG2sLX.jpg
 
 #the banner image of post
 # if the post not set the post cover and post top image, it will show it
@@ -162,7 +173,7 @@ post_meta:
 
 # Please see doc for more details: https://jerryc.me/posts/21cfbf15/#字数统计
 wordcount:
-  enable: false
+  enable: true
 
 toc:
   enable: true
@@ -181,6 +192,9 @@ auto_excerpt:
   enable: true
   length: 150
 
+# 图片放大的模式
+medium_zoom:
+  enable: true
 
 # Share System
 # ---------------
@@ -190,7 +204,8 @@ addThis:
 
 sharejs:
   enable: true
-  sites: facebook,twitter,wechat,weibo,qq
+  # sites: facebook,twitter,wechat,weibo,qq
+  sites: wechat,weibo,qq
 
 # https://www.addtoany.com/
 addtoany:
@@ -222,37 +237,43 @@ disqus:
   # client_secret: 
 
 # gitalk:
-#   enable: false
-#   client_id: 
-#   client_secret: 
-#   repo:
-#   owner:
-#   admin:
+#   enable: true
+#   client_id: 56b9b46dd389029b8041
+#   client_secret: 21234bd4d250bcb0068f4560c9b6898b73eab674
+#   repo: gitalk_data
+#   owner: ReBoRn8888
+#   admin: ReBoRn8888
 ####   Using this js for redirect to gitalk container after login
 ####   See https://github.com/gitalk/gitalk/issues/125
 #   js: https://cdn.jsdelivr.net/gh/upupming/gitalk@36368e5dffd049e956cdbbd751ff96c28d8255cf/dist/gitalk.min.js
 
-# valine comment system. https://valine.js.org
-valine:
-  enable: false # if you want use valine,please set this value is true
-  appId:   # leancloud application app id
-  appKey:   # leancloud application app key
-  notify: false # valine mail notify (true/false) https://github.com/xCss/Valine/wiki
-  verify: false # valine verify code (true/false)
-  pageSize: 10 # comment list page size
-  avatar: monsterid # gravatar style https://valine.js.org/#/avatar
-  lang: en # i18n: zh-cn/en/tw
-  placeholder: Please leave your footprints # valine comment input placeholder(like: Please leave your footprints )
-  guest_info: nick,mail,link #valine comment header inf
+
+
+
+# # valine comment system. https://valine.js.org
+# valine:
+#   enable: false # if you want use valine,please set this value is true
+#   appId:   # leancloud application app id
+#   appKey:   # leancloud application app key
+#   notify: false # valine mail notify (true/false) https://github.com/xCss/Valine/wiki
+#   verify: false # valine verify code (true/false)
+#   pageSize: 10 # comment list page size
+#   avatar: monsterid # gravatar style https://valine.js.org/#/avatar
+#   lang: en # i18n: zh-cn/en/tw
+#   placeholder: Please leave your footprints # valine comment input placeholder(like: Please leave your footprints )
+#   guest_info: nick,mail,link #valine comment header inf
 
 # Footer Settings
 # ---------------
-since: 2018
+since: 2019
 
-footer_custom_text:
+footer_custom_text: Hi, welcome to my <u><a href="https://reborn8888.github.io/">Blog</a></u>!
 
 footer_copyright:
   enable: true
+
+# footer是否顯示圖片背景(true - 與top_img一致; false - 与主题色一致)
+footer_bg: true
 
 ICP:
   enable: false
@@ -261,9 +282,9 @@ ICP:
 
 # busuanzi count for PV / UV in site
 busuanzi:
-  site_uv: false
-  site_pv: false
-  page_pv: false
+  site_uv: true
+  site_pv: true
+  page_pv: true
 
 
 
@@ -320,10 +341,10 @@ reward:
   enable: true
   QR_code:
     - itemlist:
-        img: /img/wechat.jpg
+        img: https://i.loli.net/2019/12/08/sLmoV1atujlQPRY.png
         text: 微信
     - itemlist:
-        img: /img/alipay.jpg
+        img: https://i.loli.net/2019/12/08/HhJfxq64XDn3LMK.png
         text: 支付寶
 
 related_post:
@@ -341,12 +362,20 @@ canvas_ribbon:
   size: 150
   alpha: 0.6
   zIndex: -1
-  click_to_change: false
-
+  click_to_change: true
+  mobile: false # false 手機端不顯示 true 手機端顯示
 
 canvas_ribbon_piao:
   enable: true
+  mobile: false # false 手機端不顯示 true 手機端顯示
 
+canvas_nest:
+  enable: false
+  color: '0,0,255' #color of lines, default: '0,0,0'; RGB values: (R,G,B).(note: use ',' to separate.)
+  opacity: 0.7 # the opacity of line (0~1), default: 0.5.
+  zIndex: -1 # z-index property of the background, default: -1.
+  count: 99 # the number of lines, default: 99.
+  mobile: false # false 手機端不顯示 true 手機端顯示
 
 # 避免重複網址分散seo
 canonical: true
@@ -407,10 +436,33 @@ translate:
   #當文字是繁體時，按鈕顯示的文字
   msgToSimplifiedChinese: "简"
 
+# V2.0.0 開始增加一個選項，可開啓自動切換light mode 和 dark mode
+# autoChangeMode: 1 跟隨系統而變化，不支持的瀏覽器/系統將按照時間晚上6點到早上6點之間切換為 dark mode
+# autoChangeMode: 2 只按照時間 晚上6點到早上6點之間切換為 dark mode,其餘時間為light mode
+# autoChangeMode: false 取消自動切換
+autoChangeMode: 2
 
 # 鼠標點擊效果
 fireworks:
   enable: false
+
+# 點擊出現文字，文字可自行修改
+ClickShowText:
+  enable: false
+  text: 
+    - 富强
+    - 民主
+    - 文明
+    - 和谐
+    - 自由
+    - 平等
+    - 公正
+    - 法治
+    - 爱国
+    - 敬业
+    - 诚信
+    - 友善
+  fontSize: 15px
 
 #百度推送
 baidu_push:
