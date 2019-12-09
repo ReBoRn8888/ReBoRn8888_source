@@ -3,12 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Reborn's Blog
-subtitle: 
-description:
+title: Reborn
+subtitle: Blog
+description: A loser who records learning occasionally
 keywords:
 author: Reborn
 language: zh-CN
+# language: en
 timezone:
 
 # URL
