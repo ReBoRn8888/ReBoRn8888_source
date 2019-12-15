@@ -3,8 +3,8 @@ title: Hello World
 date: 2019-12-07 19:50:56
 tags: hexo
 categories: 教程
-top_img:
-cover:
+top_img: https://raw.githubusercontent.com/hexojs/logo/master/hexo-logo-avatar.png
+cover: https://raw.githubusercontent.com/hexojs/logo/master/hexo-logo-avatar.png
 ---
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 

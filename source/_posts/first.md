@@ -3,8 +3,8 @@ title: 使用示例
 date: 2019-12-08 19:50:56
 tags: hexo
 categories: 教程
-top_img:
-cover:
+top_img: https://raw.githubusercontent.com/hexojs/logo/master/hexo-logo-avatar.png
+cover: https://raw.githubusercontent.com/hexojs/logo/master/hexo-logo-avatar.png
 ---
 
 # 音乐播放器示例：

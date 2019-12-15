@@ -81,7 +81,7 @@ algolia_search:
 # Please see doc for more details: https://jerryc.me/posts/21cfbf15/#本地搜索
 # ---------------
 local_search:
-  enable: false
+  enable: true
   labels:
     input_placeholder: Search for Posts
     hits_empty: "We didn't find any results for the search: ${query}" # if there are no result
@@ -247,21 +247,18 @@ disqus:
 ####   See https://github.com/gitalk/gitalk/issues/125
 #   js: https://cdn.jsdelivr.net/gh/upupming/gitalk@36368e5dffd049e956cdbbd751ff96c28d8255cf/dist/gitalk.min.js
 
-
-
-
-# # valine comment system. https://valine.js.org
-# valine:
-#   enable: false # if you want use valine,please set this value is true
-#   appId:   # leancloud application app id
-#   appKey:   # leancloud application app key
-#   notify: false # valine mail notify (true/false) https://github.com/xCss/Valine/wiki
-#   verify: false # valine verify code (true/false)
-#   pageSize: 10 # comment list page size
-#   avatar: monsterid # gravatar style https://valine.js.org/#/avatar
-#   lang: en # i18n: zh-cn/en/tw
-#   placeholder: Please leave your footprints # valine comment input placeholder(like: Please leave your footprints )
-#   guest_info: nick,mail,link #valine comment header inf
+# valine comment system. https://valine.js.org
+valine:
+  enable: true # if you want use valine,please set this value is true
+  appId: 2boKvi6UsSeUABpVH99z87cj-gzGzoHsz  # leancloud application app id
+  appKey: instDcdLyY9Ace9gcgI1eQh3  # leancloud application app key
+  notify: false # valine mail notify (true/false) https://github.com/xCss/Valine/wiki
+  verify: false # valine verify code (true/false)
+  pageSize: 10 # comment list page size
+  avatar: monsterid # gravatar style https://valine.js.org/#/avatar
+  lang: en # i18n: zh-cn/en/tw
+  placeholder: Please leave your footprints # valine comment input placeholder(like: Please leave your footprints )
+  guest_info: nick,mail,link #valine comment header inf
 
 # Footer Settings
 # ---------------
