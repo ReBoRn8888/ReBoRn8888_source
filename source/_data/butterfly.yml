@@ -44,8 +44,9 @@ favicon: /img/favicon.ico
 
 # Highlight theme
 # ---------------
-highlight_theme: light
-highlight_copy: true
+highlight_theme: light # default, light, darker, pale night, ocean
+highlight_copy: true #代碼複製按鈕
+highlight_lang: true #代碼語言顯示
 highlight_shrink: true #代碼框不展開，需點擊 '>' 打開
 
 code_word_wrap: false
