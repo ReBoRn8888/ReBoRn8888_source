@@ -1,15 +1,24 @@
-footer
+#footer
+  position: relative
   margin-top: 1rem
   background: $light-blue
   background-attachment: local
+  background-position: bottom
+  background-size: cover
 
-  &.footer-bg
-    background-position: bottom
-    background-size: cover
+  if hexo-config('footer_bg') != false
+    &:before
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      background-color: alpha($dark-black, .5)
+      content: ''
 
-
-#footer
-  padding: 1.2rem 1rem 1rem
+#footer-wrap
+  position: relative
+  padding: 2rem 1rem
   color: $light-grey
   text-align: center
 
@@ -22,5 +31,8 @@ footer
       color: $white
 
   .footer-separator
-    margin: 0 0.2rem
+    margin: 0 .2rem
 
+  .icp-icon
+    padding: 0 4px
+    vertical-align: text-bottom

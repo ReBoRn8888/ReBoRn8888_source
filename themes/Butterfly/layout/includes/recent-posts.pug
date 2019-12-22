@@ -1,27 +1,25 @@
 each article , index in page.posts.data
   .recent-post-item.article-container
     - var link = article.link || article.path
+    - var title = article.title || _p('no_title')
       if index%2 == 0
-        .post_cover.is_left
-          a(href=url_for(link))
+        .post_cover.left_radius
+          a(href=url_for(link) title=title)
             - var post_cover = article.cover
-            - var default_post_cover = theme.default_cover
-            if (post_cover)
-              img.post_bg.lozad(data-src=`${post_cover}` onerror=`onerror=null;src='${theme.lodding_bg.post_page}'` title=article.title || _p('no_title'))
+            if theme.lazyload.enable
+              img.post_bg.lazyload(data-src=`${post_cover}` onerror=`this.onerror=null;this.src='`+ url_for(theme.lodding_bg.post_page) + `'` alt=title)
             else
-              img.post_bg.lozad(data-src=`${default_post_cover}` onerror=`onerror=null;src='${theme.lodding_bg.post_page}'` title=article.title || _p('no_title'))
+              img.post_bg(src=`${post_cover}` onerror=`this.onerror=null;this.src='`+ url_for(theme.lodding_bg.post_page) + `'` alt=title)
       else
-        .post_cover.is_right
-          a(href=url_for(link))
+        .post_cover.right_radius
+          a(href=url_for(link) title=title)
             - var post_cover = article.cover
-            - var default_post_cover = theme.default_cover
-            if (post_cover)
-              img.post_bg.lozad(data-src=`${post_cover}` onerror=`onerror=null;src='${theme.lodding_bg.post_page}'` title=article.title || _p('no_title'))
+            if theme.lazyload.enable
+              img.post_bg.lazyload(data-src=`${post_cover}` onerror=`this.onerror=null;this.src='`+ url_for(theme.lodding_bg.post_page) + `'` alt=title)
             else
-              img.post_bg.lozad(data-src=`${default_post_cover}` onerror=`onerror=null;src='${theme.lodding_bg.post_page}'` title=article.title || _p('no_title'))
-
+              img.post_bg(src=`${post_cover}` onerror=`this.onerror=null;this.src='`+ url_for(theme.lodding_bg.post_page) + `'` alt=title)            
     .recent-post-info   
-      a.article-title(href=url_for(link) title=article.title || _p('no_title'))= article.title || _p('no_title')
+      a.article-title(href=url_for(link) title=title)= title
       if (article.top)
         span.article-meta
           i.fa.fa-thumb-tack.article-meta__icon.sticky
@@ -38,21 +36,11 @@ each article , index in page.posts.data
             a(href=url_for(item.path)).article-meta__categories #[=item.name]
             if (index < article.categories.data.length - 1)
                 i.fa.fa-angle-right(aria-hidden="true")
-      //- if (theme.post_meta.tags && article.tags.data.length > 0)
-      //-   span.article-meta.tags
-      //-     span.article-meta__separator |
-      //-     each item, index in article.tags.data
-      //-       i.fa.fa-tag.article-meta__icon(aria-hidden="true")
-      //-       a(href=url_for(item.path)).article-meta__tags #[=item.name]
-      //-       if (index < article.tags.data.length - 1)
-      //-         span.article-meta__link -
       if theme.auto_excerpt && theme.auto_excerpt.enable
         - const content = strip_html(article.content)
         - let expert = content.substring(0, theme.auto_excerpt.length) 
         - content.length > theme.auto_excerpt.length ? expert += ' ...' : ''
         .content!= expert
-        .more_setting
-          a.more.more--border.more--primary.more--animated(href=url_for(link) + '#more' style="margin-top: 14px")= _p('read_more')
       else
         .content!= article.description
 

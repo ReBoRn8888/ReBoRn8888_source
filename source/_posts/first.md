@@ -13,8 +13,9 @@ cover: https://i.loli.net/2019/12/18/SzjCdO1GBLhwem6.png
 ---
 
 # 公式渲染示例：
-$\sum\limits_{k=1}^nk xxxx$
-$\min_{x\in X}\sum_{i=1}^{n}\lambda_i d(x_i,x)^p$
+$$\sum\limits_{k=1}^nk xxxxx$$
+
+$$\min_{x\in X}\sum_{i=1}^{n}\lambda_i d(x_i,x)^p$$
 
 ---
 
