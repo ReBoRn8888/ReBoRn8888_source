@@ -1,5 +1,5 @@
 ---
-title: Hello World
+title: Hexo的安装和配置
 date: 2019-12-07 19:50:56
 tags: hexo
 categories: 教程
@@ -10,8 +10,17 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 
 ## Quick Start
 
-### Create a new post
+### Installation
+```bash
+# Because npm is too slow in China, we use cnpm(http://npm.taobao.org/) for installation
+$ npm install -g cnpm --registry=https://registry.npm.taobao.org
+# Install hexo
+$ cnpm install -g hexo-cli
+# View version information
+$ hexo -v
+```
 
+### Create a new post
 ``` bash
 $ hexo new "My New Post"
 ```
