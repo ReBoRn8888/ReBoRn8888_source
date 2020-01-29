@@ -4,7 +4,7 @@ date: 2019-12-07 19:50:56
 tags: hexo
 categories: 教程
 top_img: 
-cover: https://i.loli.net/2019/12/18/SzjCdO1GBLhwem6.png
+cover: https://i.loli.net/2020/01/29/JL5EKM2IbAao4h7.png
 ---
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
