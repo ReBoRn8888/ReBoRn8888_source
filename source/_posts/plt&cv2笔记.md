@@ -46,7 +46,7 @@ def plot(img, BBoxes, Scores, Classes):
 	plt.gca().yaxis.set_major_locator(plt.NullLocator())  
 	plt.tight_layout()
 	plt.margins(0,0)
-	plt.savefig(name)
+	plt.savefig('xxxx', dpi=200, bbox_inches='tight')
 ```
 效果如图：
 ![](https://i.loli.net/2020/02/14/6blPkigdvajserD.png)
@@ -70,6 +70,7 @@ def resize_by_padding(img, height, width):
         right = dw - left
     
     BLACK = [0, 0, 0]
+    # 以 padding 的方式填充到正方形
     constant = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=BLACK)
     return cv2.resize(constant, (height, width))
 ```
