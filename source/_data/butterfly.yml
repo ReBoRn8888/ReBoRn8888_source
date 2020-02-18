@@ -443,7 +443,7 @@ subtitle:
   source: false
   # (如果有英文逗號' , '，請使用轉義字符 &#44;)
   sub:
-    - 我的钻头\t\t\t是突破天际的钻头！
+    - My drill is the drill that breaks through the sky!
     - 俺のドリルは\t\t\t天を創るドリルだぁあああ！
 
 ####    側邊欄    ####

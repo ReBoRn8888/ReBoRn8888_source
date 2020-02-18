@@ -358,3 +358,62 @@ best_acc = train_val( net,
                       modelPath,
                       modelName)
 ```
+
+# Evaluation Template
+```python
+def get_labels_and_pres(net, dataLoader):
+    l, p = [], []
+    with torch.no_grad():
+        for data in dataLoader:
+            images, labels = data
+            images = images.cuda()
+            labels = labels.cuda()
+            outputs = net(images)
+            predicted = torch.argmax(outputs.data, 1)
+            labels = torch.argmax(labels.data, 1)
+            p.extend(predicted.cpu().numpy())
+            l.extend(labels.cpu().numpy())
+    return l, p
+    
+def eval_total(labels, preds):
+    start = time.time()
+    
+    total = len(labels)
+    correct = np.equal(labels, preds).sum()
+    
+    accTotal = 100 * correct / total
+    duration = time.time() - start
+    print('Accuracy of the network on the {} test images: {:.2f}% ({:.0f}mins {:.2f}s)'.format(total, accTotal, duration // 60, duration % 60))
+    return accTotal
+
+def eval_per_class(labels, preds, classes):
+    num_classes = len(classes)
+    start = time.time()
+    class_correct = list(0. for i in range(num_classes))
+    class_total = list(0. for i in range(num_classes))
+
+    c = np.equal(labels, preds)
+    for i in range(len(c)):
+        label = labels[i]
+        class_correct[label] += c[i]
+        class_total[label] += 1
+    print('class_correct\t:\t{}'.format(class_correct))
+    print('class_total\t:\t{}'.format(class_total))
+    accPerClass = dict()
+    for i in range(num_classes):
+        accPerClass[classes[i]] = 0 if class_correct[i] == 0 else '{:.2f}%'.format(100 * class_correct[i] / class_total[i])
+    duration = time.time() - start
+    print('Per class accuracy :')
+    print(accPerClass)
+    print('Duration for accPerClass : {:.0f}mins {:.2f}s'.format(duration // 60, duration % 60))
+    return accPerClass
+
+# ===========================================================================================
+
+labels, preds = get_labels_and_pres(classifier, testLoader)
+model = torch.load('path/to/model')
+classifier = model['net'].cuda()
+classList = model['classes']
+accTotal = eval_total(labels, preds)
+accPerClass = eval_per_class(labels, preds, classList)
+```
