@@ -438,19 +438,19 @@ ul li:hover ul {
 }
 
 .main-ML_Platform {
-	background: url('../images/ML_Platform/ML_Platform.png') no-repeat;
+	background: url('../Projects/images/ML_Platform/ML_Platform.png') no-repeat;
 }
 
 .main-InUHeart {
-	background: url('../images/InUHeart/InUHeart.png') no-repeat;
+	background: url('../Projects/images/InUHeart/InUHeart.png') no-repeat;
 }
 
 .main-OpticalFilter {
-	background: url('../images/OpticalFilter/OpticalFilter.png') no-repeat;
+	background: url('../Projects/images/OpticalFilter/OpticalFilter.png') no-repeat;
 }
 
 .main-Campus {
-	background: url('../images/Campus/Campus.png') no-repeat;
+	background: url('../Projects/images/Campus/Campus.png') no-repeat;
 }
 
 #particles-js {

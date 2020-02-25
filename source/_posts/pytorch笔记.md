@@ -287,13 +287,13 @@ def train_val(net, optimizer, n_epochs, trainBS, valBS, trainDataset, trainLoade
             # Save models
             if(phase == 'val' and epoch_acc > best_acc):
                 print('Saving best model to {}'.format(os.path.join(modelPath, modelName)))
-                state = {'net': net, 'opt': optimizer, 'acc': epoch_acc, 'epoch': epoch, 'classes': classes}
+                state = {'net': net.state_dict(), 'opt': optimizer, 'acc': epoch_acc, 'epoch': epoch, 'classes': classes}
                 torch.save(state, os.path.join(modelPath, modelName))
                 best_acc = epoch_acc
             if(phase == 'val' and epoch == n_epochs - 1):
                 finalModelName = 'final-{}'.format(modelName)
                 print('Saving final model to {}'.format(os.path.join(modelPath, finalModelName)))
-                state = {'net': net, 'opt': optimizer, 'acc': epoch_acc, 'epoch': epoch, 'classes': classes}
+                state = {'net': net.state_dict(), 'opt': optimizer, 'acc': epoch_acc, 'epoch': epoch, 'classes': classes}
                 torch.save(state, os.path.join(modelPath, finalModelName))
         print('')
 
@@ -322,9 +322,9 @@ myTransform = transforms.Compose([
 ])
 
 trainDataset = myDataset(trainImage, torch.Tensor(trainLabel).long(), classes, transform=myTransform, to_onehot=True)
-trainLoader = DataLoader(trainDataset, batch_size=trainBS, shuffle=True, num_workers=1)
+trainLoader = DataLoader(trainDataset, batch_size=trainBS, shuffle=True, num_workers=8)
 testDataset = myDataset(testImage, torch.Tensor(testLabel).long(), classes, transform=myTransform, to_onehot=True)
-testLoader = DataLoader(testDataset, batch_size=testBS, shuffle=False, num_workers=1)
+testLoader = DataLoader(testDataset, batch_size=testBS, shuffle=False, num_workers=8)
 
 #---- Create model ----#
 net = models.resnet18(pretrained=False)
@@ -410,10 +410,14 @@ def eval_per_class(labels, preds, classes):
 
 # ===========================================================================================
 
-labels, preds = get_labels_and_pres(classifier, testLoader)
-model = torch.load('path/to/model')
-classifier = model['net'].cuda()
-classList = model['classes']
+ckpt = torch.load(os.path.join(modelPath, modelName))
+net = ResNet18(num_classes=len(classes), input_shape=(3, imageSize, imageSize))
+net.load_state_dict(ckpt['net'])
+net = net.cuda()
+**net.eval()**
+classList = ckpt['classes']
+
+labels, preds = get_labels_and_pres(net, testLoader)
 accTotal = eval_total(labels, preds)
 accPerClass = eval_per_class(labels, preds, classList)
 ```
