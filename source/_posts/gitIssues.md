@@ -18,10 +18,10 @@ cover: https://i.loli.net/2020/03/02/vO8bI5LnMUjJwlH.png
 编辑home目录下的`.gitconfig`，添加以下配置，以扩大单个文件最大容量限制：
 ```
 	[core] 
-	packedGitLimit = 1024m 
-	packedGitWindowSize = 1024m 
+		packedGitLimit = 1024m 
+		packedGitWindowSize = 1024m 
 	[pack] 
-	deltaCacheSize = 2047m 
-	packSizeLimit = 2047m 
-	windowMemory = 2047m
+		deltaCacheSize = 2047m 
+		packSizeLimit = 2047m 
+		windowMemory = 2047m
 ```
