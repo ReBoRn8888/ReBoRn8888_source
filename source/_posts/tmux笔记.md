@@ -1,5 +1,5 @@
 ---
-title: tmux笔记
+title: tmux 笔记
 date: 2020-03-11 10:52:07
 tags: [tmux, Linux, terminal]
 categories: 学习笔记
