@@ -16,10 +16,12 @@ import matplotlib.pyplot as ply
 
 def plot(img, BBoxes, Scores, Classes):
 	# - top_img (np.array) : input image
-	# - BBoxes (list) : all bboxes
+	# - BBoxes (list) : all bboxes, [x_lt, y_lt, x_br, y_br] (lt--lefttop, br--bottomright)
 	# - Scores (list) : scores for all bboxes
 	# - Classes (list) : prediction classes for  all bboxes
 	h, w, c = img.shape
+	fig = plt.figure()
+	ax = fig.add_subplot(111)
 	ax.imshow(img)
 	for i in range(len(BBoxes)):
 		bbox = BBoxes[i]
