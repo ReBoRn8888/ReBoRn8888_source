@@ -1,13 +1,50 @@
 ---
 title: pytorch 笔记
 date: 2020-02-14 16:03:19
-tags: [pytorch, 深度学习]
+tags: [pytorch, 深度学习, python]
 categories: 学习笔记
 top_img:
 cover: https://i.loli.net/2020/02/14/YXEOI3Txj7HJqRa.jpg
 ---
 
 {% aplayer 'Touch off' 'UVERworld' 'http://music.163.com/song/media/outer/url?id=1348625245.mp3' 'https://i.loli.net/2020/02/14/YXEOI3Txj7HJqRa.jpg' autoplay %}
+
+# 选择运算设备(CPU/GPU)
+```python
+def select_device(device='', apex=False, batch_size=None):
+    # device = 'cpu' or '0' or '0,1,2,3'
+    cpu_request = device.lower() == 'cpu'
+    if device and not cpu_request:  # if device requested other than 'cpu'
+        os.environ['CUDA_VISIBLE_DEVICES'] = device  # set environment variable
+        assert torch.cuda.is_available(), 'CUDA unavailable, invalid device %s requested' % device  # check availablity
+
+    cuda = False if cpu_request else torch.cuda.is_available()
+    if cuda:
+        c = 1024 ** 2  # bytes to MB
+        ng = torch.cuda.device_count()
+        if ng > 1 and batch_size:  # check that batch_size is compatible with device_count
+            assert batch_size % ng == 0, 'batch-size %g not multiple of GPU count %g' % (batch_size, ng)
+        x = [torch.cuda.get_device_properties(i) for i in range(ng)]
+        s = 'Using CUDA ' + ('Apex ' if apex else '')  # apex for mixed precision https://github.com/NVIDIA/apex
+        for i in range(0, ng):
+            if i == 1:
+                s = ' ' * len(s)
+            print("%sdevice%g _CudaDeviceProperties(name='%s', total_memory=%dMB)" %
+                  (s, i, x[i].name, x[i].total_memory / c))
+    else:
+        print('Using CPU')
+
+    print('')  # skip a line
+    return torch.device('cuda:0' if cuda else 'cpu')
+
+# ===========================================================================================
+
+device = select_device(device='cpu')
+>>> Using CPU
+
+device = select_device(device='0')
+>>> Using CUDA device0 _CudaDeviceProperties(name='GeForce GTX 1060 6GB', total_memory=6144MB)
+```
 
 # 自定义 Dataset
 ```python
@@ -74,6 +111,7 @@ class myLoss(nn.Module):
 
 criterion = myLoss()
 ```
+
 # AverageMeter()
 ```python
 class AverageMeter(object):
@@ -181,16 +219,191 @@ def plot_acc_loss(log, type, modelPath, prefix='', suffix='', printFlag=False):
         print("Figure saved to : {}".format(os.path.abspath(figName)))
     plt.close()
 ```
+> loss_accuracy.png 如下
+> ![](https://i.loli.net/2020/04/09/19laYwPiVAn26ZX.png)
 
 # Finetune torchvision.models
 ```python
 from torchvision import models
 
+# 读取pytorch库模型
 net = models.resnet18(pretrained=True)
+# 修改池化层为全局平均池化
+net.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+# 修改最后一层全连接层
 fc_features = net.fc.in_features
 net.fc = nn.Linear(fc_features, len(classes))
-net.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+# 将模型加载到GPU中
 net = net.cuda()
+```
+
+# Model summary
+```python
+import torch
+import torch.nn as nn
+from torch.autograd import Variable
+
+from collections import OrderedDict
+import numpy as np
+
+
+def summary(model, input_size, batch_size=-1, device="cuda"):
+    outString = ""
+    def register_hook(module):
+
+        def hook(module, input, output):
+            class_name = str(module.__class__).split(".")[-1].split("'")[0]
+            module_idx = len(summary)
+
+            m_key = "%s-%i" % (class_name, module_idx + 1)
+            summary[m_key] = OrderedDict()
+            summary[m_key]["input_shape"] = list(input[0].size())
+            summary[m_key]["input_shape"][0] = batch_size
+            if isinstance(output, (list, tuple)):
+                summary[m_key]["output_shape"] = [
+                    [-1] + list(o.size())[1:] for o in output
+                ]
+            else:
+                summary[m_key]["output_shape"] = list(output.size())
+                summary[m_key]["output_shape"][0] = batch_size
+
+            params = 0
+            if hasattr(module, "weight") and hasattr(module.weight, "size"):
+                params += torch.prod(torch.LongTensor(list(module.weight.size())))
+                summary[m_key]["trainable"] = module.weight.requires_grad
+            if hasattr(module, "bias") and hasattr(module.bias, "size"):
+                params += torch.prod(torch.LongTensor(list(module.bias.size())))
+            summary[m_key]["nb_params"] = params
+
+        if (
+            not isinstance(module, nn.Sequential)
+            and not isinstance(module, nn.ModuleList)
+            and not (module == model)
+        ):
+            hooks.append(module.register_forward_hook(hook))
+
+    device = device.lower()
+    assert device in [
+        "cuda",
+        "cpu",
+    ], "Input device is not valid, please specify 'cuda' or 'cpu'"
+
+    if device == "cuda" and torch.cuda.is_available():
+        dtype = torch.cuda.FloatTensor
+    else:
+        dtype = torch.FloatTensor
+
+    # multiple inputs to the network
+    if isinstance(input_size, tuple):
+        input_size = [input_size]
+
+    # batch_size of 2 for batchnorm
+    x = [torch.rand(2, *in_size).type(dtype) for in_size in input_size]
+
+    # create properties
+    summary = OrderedDict()
+    hooks = []
+
+    # register hook
+    model.apply(register_hook)
+
+    # make a forward pass
+    model(*x)
+
+    # remove these hooks
+    for h in hooks:
+        h.remove()
+
+    outString += "{}\n".format("----------------------------------------------------------------")
+    line_new = "{:>20}  {:>25} {:>15}".format("Layer (type)", "Output Shape", "Param #")
+    outString += "{}\n".format(line_new)
+    outString += "{}\n".format("================================================================")
+    total_params = 0
+    total_output = 0
+    trainable_params = 0
+    for layer in summary:
+        # input_shape, output_shape, trainable, nb_params
+        line_new = "{:>20}  {:>25} {:>15}".format(
+            layer,
+            str(summary[layer]["output_shape"]),
+            "{0:,}".format(summary[layer]["nb_params"]),
+        )
+        total_params += summary[layer]["nb_params"]
+        total_output += np.prod(summary[layer]["output_shape"])
+        if "trainable" in summary[layer]:
+            if summary[layer]["trainable"] == True:
+                trainable_params += summary[layer]["nb_params"]
+        outString += "{}\n".format(line_new)
+
+    # assume 4 bytes/number (float on cuda).
+    total_input_size = abs(np.prod(input_size) * batch_size * 4. / (1024 ** 2.))
+    total_output_size = abs(2. * total_output * 4. / (1024 ** 2.))  # x2 for gradients
+    total_params_size = abs(total_params.numpy() * 4. / (1024 ** 2.))
+    total_size = total_params_size + total_output_size + total_input_size
+
+    outString += "{}\n".format("================================================================")
+    outString += "{}\n".format("Total params: {0:,}".format(total_params))
+    outString += "{}\n".format("Trainable params: {0:,}".format(trainable_params))
+    outString += "{}\n".format("Non-trainable params: {0:,}".format(total_params - trainable_params))
+    outString += "{}\n".format("----------------------------------------------------------------")
+    outString += "{}\n".format("Input size (MB): %0.2f" % total_input_size)
+    outString += "{}\n".format("Forward/backward pass size (MB): %0.2f" % total_output_size)
+    outString += "{}\n".format("Params size (MB): %0.2f" % total_params_size)
+    outString += "{}\n".format("Estimated Total Size (MB): %0.2f" % total_size)
+    outString += "{}\n".format("----------------------------------------------------------------")
+    return outString
+```
+> 示例结果如下
+```python
+from torchvision import models
+
+net = models.vgg11(pretrained=False).cuda()
+print(summary(net, (3, 32, 32)))
+
+# ===========================================================================================
+
+>>> ----------------------------------------------------------------
+>>>         Layer (type)               Output Shape         Param #
+>>> ================================================================
+>>>             Conv2d-1           [-1, 64, 32, 32]           1,792
+>>>               ReLU-2           [-1, 64, 32, 32]               0
+>>>          MaxPool2d-3           [-1, 64, 16, 16]               0
+>>>             Conv2d-4          [-1, 128, 16, 16]          73,856
+>>>               ReLU-5          [-1, 128, 16, 16]               0
+>>>          MaxPool2d-6            [-1, 128, 8, 8]               0
+>>>             Conv2d-7            [-1, 256, 8, 8]         295,168
+>>>               ReLU-8            [-1, 256, 8, 8]               0
+>>>             Conv2d-9            [-1, 256, 8, 8]         590,080
+>>>              ReLU-10            [-1, 256, 8, 8]               0
+>>>         MaxPool2d-11            [-1, 256, 4, 4]               0
+>>>            Conv2d-12            [-1, 512, 4, 4]       1,180,160
+>>>              ReLU-13            [-1, 512, 4, 4]               0
+>>>            Conv2d-14            [-1, 512, 4, 4]       2,359,808
+>>>              ReLU-15            [-1, 512, 4, 4]               0
+>>>         MaxPool2d-16            [-1, 512, 2, 2]               0
+>>>            Conv2d-17            [-1, 512, 2, 2]       2,359,808
+>>>              ReLU-18            [-1, 512, 2, 2]               0
+>>>            Conv2d-19            [-1, 512, 2, 2]       2,359,808
+>>>              ReLU-20            [-1, 512, 2, 2]               0
+>>>         MaxPool2d-21            [-1, 512, 1, 1]               0
+>>> AdaptiveAvgPool2d-22            [-1, 512, 7, 7]               0
+>>>            Linear-23                 [-1, 4096]     102,764,544
+>>>              ReLU-24                 [-1, 4096]               0
+>>>           Dropout-25                 [-1, 4096]               0
+>>>            Linear-26                 [-1, 4096]      16,781,312
+>>>              ReLU-27                 [-1, 4096]               0
+>>>           Dropout-28                 [-1, 4096]               0
+>>>            Linear-29                 [-1, 1000]       4,097,000
+>>> ================================================================
+>>> Total params: 132,863,336
+>>> Trainable params: 132,863,336
+>>> Non-trainable params: 0
+>>> ----------------------------------------------------------------
+>>> Input size (MB): 0.01
+>>> Forward/backward pass size (MB): 2.94
+>>> Params size (MB): 506.83
+>>> Estimated Total Size (MB): 509.78
+>>> ----------------------------------------------------------------
 ```
 
 # Train/Validate Template
