@@ -69,3 +69,36 @@ print(basename2)
 >>> test.py
 >>> xxx
 ```
+
+# 对list型矩阵的变换技巧
+```python
+def print_matrix(mat):
+    for x in mat:
+        print(' '.join([str(n) for n in x]))
+
+a = [[1,2,3], [4,5,6],[7,8,9]]
+print_matrix(a)
+>>> 1 2 3
+>>> 4 5 6
+>>> 7 8 9
+
+print_matrix(zip(*a))
+>>> 1 4 7
+>>> 2 5 8
+>>> 3 6 9
+
+print_matrix(a[::-1]) # 等价于print_matrix(reversed(a))
+>>> 7 8 9
+>>> 4 5 6
+>>> 1 2 3
+
+print_matrix(zip(*a[::-1])) # 等价于print_matrix(zip(*reversed(a)))
+>>> 7 4 1
+>>> 8 5 2
+>>> 9 6 3
+
+print_matrix(map(reversed, a[::-1])) # 等价于print_matrix(map(reversed, reversed(a)))
+>>> 9 8 7
+>>> 6 5 4
+>>> 3 2 1
+```
