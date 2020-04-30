@@ -7,7 +7,7 @@ top_img:
 cover: https://i.loli.net/2020/04/09/kbxQSLTBHNRJfsr.jpg
 ---
 
-{% aplayer '一荤一素 (Live)' '毛不易' 'http://music.163.com/song/media/outer/url?id=1422992245.mp3' 'http://p2.music.126.net/OBY8dfbP-Q002e4OECrqJA==/109951164703135281.jpg' autoplay %}
+{% meting "1422992245" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
 
 # time
 ```python

@@ -7,7 +7,7 @@ top_img:
 cover: https://i.loli.net/2020/02/14/8e36MDvRhumIkZO.jpg
 ---
 
-{% aplayer '夢に形はないけれど' '花たん' 'http://music.163.com/song/media/outer/url?id=27548281.mp3' 'https://i.loli.net/2020/02/14/8e36MDvRhumIkZO.jpg' autoplay %}
+{% meting "27548281" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
 
 # 聚类
 ## K-Means

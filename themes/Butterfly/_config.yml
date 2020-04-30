@@ -227,6 +227,9 @@ ICP:
   text:
   icon: /img/icp.png
 
+aplayer:
+  meting: true
+
 ####   Analysis    ####
 # ---------------
 baidu_analytics:

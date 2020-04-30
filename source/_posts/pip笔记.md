@@ -7,7 +7,7 @@ top_img:
 cover: https://i.loli.net/2020/03/16/Dpn9cQAdxwrtg37.jpg
 ---
 
-{% aplayer 'Light of Nibel' 'Gareth Coker / Aeralie Brighton' 'http://music.163.com/song/media/outer/url?id=31010776.mp3' 'http://p2.music.126.net/AnovD9sKn0RmUR6Ya4MPDQ==/109951163509831033.jpg' autoplay %}
+{% meting "31010776" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
 
 # python项目的requirements.txt
 ## 生成requirements.txt

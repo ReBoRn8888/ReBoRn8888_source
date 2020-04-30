@@ -49,6 +49,9 @@ lazyload:
   enable: true
   script: https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js
 
+aplayer:
+  meting: true
+
 # markdown_it_plus:
 #   highlight: true
 #   html: true

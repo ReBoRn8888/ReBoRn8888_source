@@ -8,7 +8,7 @@ cover: https://i.loli.net/2020/01/29/JL5EKM2IbAao4h7.png
 ---
 
 # 音乐播放器示例：
-{% aplayer '夏夜' '四季音色' 'http://music.163.com/song/media/outer/url?id=410042763.mp3' 'http://p1.music.126.net/pk-xo-6Nu5bwrA-ylVJFUA==/17885755649212510.jpg' autoplay %}
+{% meting "410042763" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
 
 ---
 

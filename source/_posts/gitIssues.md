@@ -7,7 +7,7 @@ top_img:
 cover: https://i.loli.net/2020/03/02/vO8bI5LnMUjJwlH.png
 ---
 
-{% aplayer '借(Live)' '毛不易' 'http://music.163.com/song/media/outer/url?id=1421191830.mp3' 'http://p2.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg' autoplay %}
+{% meting "1421191830" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
 
 # git clone时文件太大导致clone失败
 ## Issue

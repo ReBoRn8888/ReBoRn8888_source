@@ -7,7 +7,7 @@ top_img:
 cover: https://i.loli.net/2020/03/11/1gUhD7z3ciXwYJC.jpg
 ---
 
-{% aplayer '二零三' '毛不易' 'http://music.163.com/song/media/outer/url?id=1407214788.mp3' 'http://p2.music.126.net/XPPeIZu7wgcGXZ0666mfFg==/109951164640697307.jpg' autoplay %}
+{% meting "1407214788" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
 
 # tmux 简介
 tmux是一个终端复用（Terminal Multiplexer）工具。

@@ -7,7 +7,7 @@ top_img:
 cover: https://i.loli.net/2020/02/14/YXEOI3Txj7HJqRa.jpg
 ---
 
-{% aplayer 'Touch off' 'UVERworld' 'http://music.163.com/song/media/outer/url?id=1348625245.mp3' 'https://i.loli.net/2020/02/14/YXEOI3Txj7HJqRa.jpg' autoplay %}
+{% meting "1348625245" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
 
 # 选择运算设备(CPU/GPU)
 ```python

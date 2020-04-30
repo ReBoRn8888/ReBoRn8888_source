@@ -7,7 +7,7 @@ top_img:
 cover: https://i.loli.net/2020/02/14/lgWzFDvHry8bsdB.jpg
 ---
 
-{% aplayer 'Ezios Family' 'Jesper Kyd' 'http://music.163.com/song/media/outer/url?id=27901061.mp3' 'https://i.loli.net/2020/02/14/lgWzFDvHry8bsdB.jpg' autoplay %}
+{% meting "27901061" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
 
 # matplotlib.pyplot 
 ## Plot with annotation (Object Detection Task)

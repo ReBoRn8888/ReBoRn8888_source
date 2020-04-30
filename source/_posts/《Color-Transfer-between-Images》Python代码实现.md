@@ -7,7 +7,7 @@ top_img:
 cover: https://i.loli.net/2020/03/21/goGBmrjybwk1nOv.png
 ---
 
-{% aplayer '每一个明天' '陈奕迅' 'http://music.163.com/song/media/outer/url?id=28160871.mp3' 'http://p1.music.126.net/rYXihk9-kGWijs5vJpm0iw==/5772436045948506.jpg' autoplay %}
+{% meting "28160871" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
 
 《Color Transfer between Images》提出了一个非常经典的色彩迁移算法，用来将目标图像的色彩空间迁移到原图像上。
 Python的实现代码见：[https://github.com/ReBoRn8888/colorTransfer-python](https://github.com/ReBoRn8888/colorTransfer-python)
