@@ -13,40 +13,45 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 ### Installation
 ```bash
 # Because npm is too slow in China, we use cnpm(http://npm.taobao.org/) for installation
-$ npm install -g cnpm --registry=https://registry.npm.taobao.org
+npm install -g cnpm --registry=https://registry.npm.taobao.org
 # Install hexo
-$ cnpm install -g hexo-cli
+cnpm install -g hexo-cli
 # View version information
-$ hexo -v
+hexo -v
 ```
 
 ### Create a new post
 ``` bash
-$ hexo new "My New Post"
+hexo new "My New Post"
 ```
 
 More info: [Writing](https://hexo.io/docs/writing.html)
 
-### Run server
-
-``` bash
-$ hexo server
-```
-
-More info: [Server](https://hexo.io/docs/server.html)
-
 ### Generate static files
 
 ``` bash
-$ hexo generate
+hexo generate
+# or 
+hexo g
 ```
 
 More info: [Generating](https://hexo.io/docs/generating.html)
 
+### Run server
+
+``` bash
+# Since hexo-server is a seperated plugin now, so we need to install hexo-server manually
+npm install --save hexo-server
+# Then start the server
+hexo server
+```
+
+More info: [Server](https://hexo.io/docs/server.html)
+
 ### Deploy to remote sites
 
 ``` bash
-$ hexo deploy
+hexo deploy
 ```
 
 ### Add pin-top support

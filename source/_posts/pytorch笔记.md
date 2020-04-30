@@ -1,7 +1,7 @@
 ---
 title: pytorch 笔记
 date: 2020-02-14 16:03:19
-tags: [pytorch, 深度学习, python]
+tags: [pytorch, DL, python]
 categories: 学习笔记
 top_img:
 cover: https://i.loli.net/2020/02/14/YXEOI3Txj7HJqRa.jpg

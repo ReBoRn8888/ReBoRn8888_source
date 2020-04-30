@@ -1,7 +1,7 @@
 ---
 title: sklearn 笔记
 date: 2020-02-14 13:50:15
-tags: [python, 机器学习]
+tags: [python, ML]
 categories: 学习笔记
 top_img:
 cover: https://i.loli.net/2020/02/14/8e36MDvRhumIkZO.jpg
