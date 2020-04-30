@@ -10,31 +10,28 @@
       padding: .25rem .7rem
       width: 100%
       outline: none
-      border: 2px solid $search-color
+      border: 2px solid $light-blue
       border-radius: 2rem
-      background: $search-bg
       font-size: 14px
-      -webkit-appearance: none
 
   .local-search__hit-item
     position: relative
-    padding-left: 1.3rem
-    line-height: 1.7
+    padding-left: 1.5rem
 
     &:hover
       &:before
-        border-color: $theme-button-hover-color
+        border-color: $ruby
 
     &:before
       $w = .3rem
       position: absolute
-      top: .3rem
+      top: .4rem
       left: 0
       width: w = $w
       height: h = w
-      border: .5 * w solid $search-color
+      border: .5 * w solid $light-blue
       border-radius: w
-      background: transparent
+      background: $white
       content: ''
       line-height: h
       transition: all .2s ease-in-out
@@ -42,20 +39,12 @@
     a
       display: block
       color: $font-black
-      font-weight: 600
+      text-decoration: none
       font-size: 14px
       cursor: pointer
 
       &:hover
-        color: $search-color
-
-    .search-result
-      margin: 0 0 .4rem
-      word-break: break-all
-
-    .search-keyword
-      color: $search-keyword-highlight
-      font-weight: bold
+        color: $light-blue
 
   .local-search-stats__hr
     display: none !important

@@ -1,17 +1,20 @@
 # hexo-theme-butterfly
 
-<a href="https://github.com/jerryc127/hexo-theme-butterfly/releases"><img alt="Version" src="https://img.shields.io/badge/release-2.3.0-blue"/></a>
+<a href="https://github.com/jerryc127/hexo-theme-butterfly/releases"><img alt="Version" src="https://img.shields.io/badge/release-2.1.0-blue"/></a>
 <a href="https://jerryc.me"><img alt="Author" src="https://img.shields.io/badge/author-JerryC-blur"/></a>
-<a href="https://hexo.io"><img alt="Hexo" src="https://img.shields.io/badge/hexo-4.0+-0e83c"/></a>
-<a href="https://nodejs.org/"><img alt="node.js" src="https://img.shields.io/badge/node.js-8.0+-blur"/></a>
+<a href="https://hexo.io"><img alt="Hexo" src="https://img.shields.io/badge/hexo-3.0+-0e83c"/></a>
+<a href="https://nodejs.org/"><img alt="node.js" src="https://img.shields.io/badge/node.js-6.0-blur"/></a>
 
-Demo:  👍 [Butterfly](https://demo.jerryc.me/)  ||   🤞 [JerryC](https://jerryc.me/)
+Demo:  https://demo.jerryc.me/ 
+
+JerryC:  https://jerryc.me/
+
 
 一款基於[hexo-theme-melody](https://github.com/Molunerfinn/hexo-theme-melody)修改的主題
 
 ## 安裝
 
-在你的博客根目錄裡安裝穩定版【推薦】
+在你的博客根目錄裏
 
 ```
 git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/Butterfly
@@ -34,16 +37,9 @@ theme: Butterfly
 
 ## 文檔
 
-可查看[hexo-theme-butterfly docs](https://docs.jerryc.me) 和 [JerryC](https://jerryc.me/posts/21cfbf15)
-
-你也可以加入群組
-
-[  💬 QQ群 [推薦]](https://jq.qq.com/?_wv=1027&k=5KI3Jqb)
-
-[  💬Telegram群](https://t.me/hexo_butterfly)
+可查看[這裏](https://jerryc.me/posts/21cfbf15)
 
 ## 截圖
-
 ![image](https://user-images.githubusercontent.com/16351105/58887365-1272f780-8718-11e9-9329-3292c6ba20d4.png)
 ![image](https://user-images.githubusercontent.com/16351105/58887457-3cc4b500-8718-11e9-9417-2bdea603c92e.png)
 

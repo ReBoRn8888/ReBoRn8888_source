@@ -9,9 +9,8 @@
     input
       padding: .25rem .7rem
       outline: none
-      border: 2px solid $search-color
+      border: 2px solid $light-blue
       border-radius: 2rem
-      background: $search-bg
       font-size: 14px
 
   .ais-hits--item.algolia-hit-item
@@ -20,7 +19,7 @@
 
     &:hover
       &:before
-        border-color: $theme-button-hover-color
+        border-color: $ruby
 
     &:before
       $w = .3rem
@@ -29,9 +28,9 @@
       left: 0
       width: w = $w
       height: h = w
-      border: .5 * w solid $search-color
+      border: .5 * w solid $light-blue
       border-radius: w
-      background: transparent
+      background: $white
       content: ''
       line-height: h
       transition: all .2s ease-in-out
@@ -39,15 +38,12 @@
     a
       display: block
       color: $font-black
+      text-decoration: none
       font-size: 14px
       cursor: pointer
 
       &:hover
-        color: $search-color
-
-    em
-      color: $search-keyword-highlight
-      font-weight: bold
+        color: $light-blue
 
   .ais-pagination.pagination
     margin: .8rem 0 0
@@ -67,8 +63,9 @@
 
     .ais-pagination--item.current
       a
-        background: $theme-paginator-color
-        color: #eee
+        background: $cyan
+        color: $white
+        text-decoration: none
         cursor: default
 
   .algolia-logo

@@ -5,18 +5,24 @@ html
 body
   position: relative
   min-height: 100%
-  background: $body-bg
+  background: $white
   color: $font-black
   font-size: $font-size
   font-family: $font-family
   line-height: $text-line-height
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
 
   if !hexo-config('copy.enable')
     user-select: none
     -moz-user-select: none
     -webkit-user-select: none
     -ms-user-select: none
+
+#body-wrap
+  position: relative
+  display: flex
+  flex: 1 auto
+  flex-direction: column
+  transition: all .5s
 
 *::-webkit-scrollbar
   width: 8px
@@ -53,6 +59,9 @@ h6
   code
     font-size: inherit !important
 
+#content-outer
+  flex: 1 auto
+
 *
   box-sizing: border-box
 
@@ -62,7 +71,7 @@ h6
   left: $sidebar-icon-left
   z-index: 100
   font-size: $sidebar-icon-size
-  // opacity: 0
+  opacity: 0
   cursor: pointer
   transition: all .2s
 
@@ -70,7 +79,8 @@ hr
   position: relative
   margin: 2rem auto
   width: calc(100% - 4px)
-  border: 2px dashed lighten($theme-hr-color, 50%)
+  border: 2px dashed $pale-blue
+  background: $white
 
   &:hover
     &:before
@@ -81,51 +91,54 @@ hr
     top: $hr-icon-top
     left: 5%
     z-index: 1
-    color: $theme-hr-color
+    color: $light-blue
     content: $hr-icon
-    font-style: normal
-    font-variant: normal
+    font: normal normal normal 14px / 1 FontAwesome
     font-size: 20px
-    line-height: 1
     transition: all 1s ease-in-out
-    text-rendering: auto
-    -webkit-font-smoothing: antialiased
-
-    if hexo-config('fontawesome_v5') && hexo-config('fontawesome_v5.enable')
-      font-weight: 600
-      font-family: 'Font Awesome 5 Free'
-    else
-      font-weight: normal
-      font-family: FontAwesome
 
 iframe
   margin: 0 0 1rem
 
+// collapse/expand beautify
+details
+  padding: .3rem
+  border: 2px solid darken($light-grey, 10%)
+
+  summary
+    color: $theme-color
+
+// set <caption> of <figure> to center-align
+// use class="not-code" to avoid conflicts because code also use <figure> tag
+.not-code
+  margin: .5em
+  padding: .5em
+  border: thin silver solid
+  text-align: center
+
 table
-  display: block
   overflow: auto
   margin: 0 0 1rem
   width: 100%
   border-spacing: 0
   border-collapse: collapse
-  empty-cells: show
 
   thead
-    background: alpha($table-thead-bg, 10%)
+    background: alpha($a-link-color, 10%)
 
   th,
   td
     padding: .3rem .6rem
     border: 1px solid darken($light-grey, 10%)
-    vertical-align: middle
+    vertical-align: top
 
 *::selection
-  background: $theme-text-selection-color
-  color: #F7F7F7
+  background: $selection
+  color: $pale-grey
 
-// font
-#nav #site_title,
-#nav #site_subtitle,
+// 字體
+.full_page #site-title,
+.full_page #site-sub-title,
 #site-name,
 #aside_content .author-info__name,
 #aside_content .author-info__description
@@ -143,9 +156,6 @@ table
 .is_visible
   display: block !important
 
-.is-visible-inline
-  display: inline-block !important
-
 .is_invisible
   display: none !important
 
@@ -160,7 +170,7 @@ table
 
 // button hover
 .button--primary
-  color: $theme-button-hover-color
+  color: $ruby
 
 .button--animated
   transition-duration: 1s
@@ -173,7 +183,7 @@ table
     bottom: 0
     left: 0
     z-index: -1
-    background: $theme-button-hover-color
+    background: $ruby
     content: ''
     transition-timing-function: ease-out
     transition-duration: .5s
@@ -186,16 +196,36 @@ table
       transition-timing-function: cubic-bezier(.45, 1.64, .47, .66)
       transform: scaleX(1)
 
+// third-party
+.fireworks
+  position: fixed
+  z-index: -1
+  z-index: 99999
+  pointer-events: none
+
 img[src=''],
 img:not([src])
   opacity: 0
 
-.img-alt
-  margin: -.5rem 0 .5rem
-  color: $font-black
+.justified-gallery
+  margin: 1rem 0
 
-  &:hover
-    text-decoration: none !important
+  img
+    opacity: 0
+
+  .fancybox
+    width: auto
+    text-align: inherit
+
+  .img-alt
+    display: none
+
+.medium-zoom-image--opened
+  z-index: 99999 !important
+  margin: 0 !important
+
+.medium-zoom-overlay
+  z-index: 99999 !important
 
 // hexo tag video
 .video-container
@@ -213,35 +243,21 @@ img:not([src])
     width: 100%
     height: 100%
 
-.comment_headling
-  margin-bottom: 10px
-  font-weight: 700
-  font-size: 20px
-
-.post-ad
-  margin: 2rem 0
-
-.ad_height
-  display: block !important
-  height: auto !important
-
-#content-inner,
+.layout_page,
+.layout_post,
 #footer
   animation: main 1s
 
-#nav
-  animation: nav-effect 1s
+#nav,
+#top-container
+  animation: header 1s
 
-#site_title,
-#site_subtitle
+#site-title
   animation: titlescale 1s
 
-canvas:not(#ribbon-canvas),
+canvas,
 #web_bg
   animation: to_show 4s
-
-#ribbon-canvas
-  animation: ribbon_to_show 4s
 
 .card-announcement-animation
   color: #FF0000
@@ -250,32 +266,12 @@ canvas:not(#ribbon-canvas),
 .scroll-down-effects
   animation: scroll-down-effect 1.5s infinite
 
-if hexo-config('avatar.effect') == true
+if hexo-config('avatar_effect') == true
   .avatar-img
     animation: avatar_turn_around 2s linear infinite
 
 .reward-main
   animation: donate_effcet .3s .1s ease both
-
-.tocOpenPc
-  .sidebar-toc__title
-    animation: tocsidebarLtoR .5s
-
-  .sidebar-toc__progress
-    animation: tocsidebarLtoR .7s
-
-  .sidebar-toc__content
-    animation: tocsidebarLtoR .9s
-
-.tocOpenMobile
-  .sidebar-toc__title
-    animation: tocsidebarRtoL .4s
-
-  .sidebar-toc__progress
-    animation: tocsidebarRtoL .6s
-
-  .sidebar-toc__content
-    animation: tocsidebarRtoL .7s
 
 @keyframes scroll-down-effect
   0%
@@ -290,7 +286,7 @@ if hexo-config('avatar.effect') == true
     top: 0
     opacity: .4
 
-@keyframes nav-effect
+@keyframes header
   0%
     opacity: 0
     transform: translateY(-50px)
@@ -340,13 +336,6 @@ if hexo-config('avatar.effect') == true
   100%
     opacity: 1
 
-@keyframes ribbon_to_show
-  0%
-    opacity: 0
-
-  100%
-    opacity: hexo-config('canvas_ribbon.alpha')
-
 @keyframes avatar_turn_around
   from
     transform: rotate(0)
@@ -380,23 +369,10 @@ if hexo-config('avatar.effect') == true
   50%
     transform: scale(1.2)
 
-@keyframes sidebarItem
-  0%
-    transform: translateX(200px)
+@media screen and (max-width: $bg)
+  i#toggle-sidebar,
+  #sidebar
+    display: none
 
-  100%
-    transform: translateX(0)
-
-@keyframes tocsidebarRtoL
-  0%
-    transform: translateX(200px)
-
-  100%
-    transform: translateX(0)
-
-@keyframes tocsidebarLtoR
-  0%
-    transform: translateX(-200px)
-
-  100%
-    transform: translateX(0)
+  body
+    padding-left: 0 !important

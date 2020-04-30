@@ -1,18 +1,81 @@
-#article-container
-  if hexo-config('beautify.enable')
-    headStyle(fontsize)
-      padding-left: unit(fontsize + .4, 'rem')
+if hexo-config('post_beautify.enable')
+  headStyle(fontsize)
+    padding-left: unit(fontsize + .3, 'rem')
 
-      code
-        font-size: unit(fontsize, 'rem')
+    code
+      font-size: unit(fontsize, 'rem')
 
-      &:before
-        margin-left: unit((-(fontsize + .2)), 'rem')
-        font-size: unit(fontsize, 'rem')
+    &:before
+      top: calc(50% - unit(fontsize / 2 - .05, 'rem'))
+      font-size: unit(fontsize, 'rem')
 
-      &:hover
-        padding-left: unit(fontsize + .6, 'rem')
+    &:hover
+      padding-left: unit(fontsize + .2, 'rem')
 
+#top-container
+  position: relative
+  margin-bottom: 1rem
+  height: 19rem
+  background-color: $light-blue
+  background-attachment: local
+  background-position: center
+  background-size: cover
+
+  &:before
+    position: absolute
+    top: 0
+    left: 0
+    display: block
+    width: 100%
+    height: 100%
+    background-color: alpha($dark-black, .5)
+    content: ''
+
+  a
+    color: $light-grey
+    text-decoration: none
+    transition: all .3s ease-out
+
+    &:hover
+      text-decoration: underline
+
+  & > #post-info
+    position: absolute
+    bottom: 1.5rem
+    padding: 0 8%
+    width: 100%
+    color: $light-grey
+    text-align: left
+
+    #post-title
+      margin-bottom: .4rem
+      font-size: 1.5rem
+
+      .posttitle
+        display: -webkit-box
+        overflow: hidden
+        line-height: 1.5
+        -webkit-line-clamp: 3
+        -webkit-box-orient: vertical
+
+    #post-meta
+      .word-count,
+      #busuanzi_value_page_pv,
+      .comment-count
+        padding-left: .2rem
+
+      .post-meta
+        &__separator
+          margin: 0 .3rem
+
+        &__icon
+          margin-right: .2rem
+
+        &-pv-cv
+          display: inline-block
+
+#post-content
+  if hexo-config('post_beautify.enable')
     h1,
     h2,
     h3,
@@ -25,23 +88,16 @@
       &:before
         position: absolute
         top: calc(50% - .35rem)
+        left: 0
         color: $title-prefix-icon-color
         content: $title-prefix-icon
-        font-style: normal
-        font-variant: normal
-        line-height: 1
+        font: normal normal normal 14px / 1 FontAwesome
+        font-size: .8rem
         transition: all .2s ease-out
-        text-rendering: auto
-        -webkit-font-smoothing: antialiased
-
-        if hexo-config('fontawesome_v5') && hexo-config('fontawesome_v5.enable')
-          font-weight: 600
-          font-family: 'Font Awesome 5 Free'
-        else
-          font-weight: normal
-          font-family: FontAwesome
 
       &:hover
+        padding-left: 1.1rem
+
         &:before
           color: $light-blue
 
@@ -91,7 +147,7 @@
           top: 0
           left: 0
           background: $light-blue
-          color: $card-bg
+          color: $white
           cursor: pointer
           transition: all .3s ease-out
 
@@ -112,7 +168,7 @@
       > li
         &:hover
           &:before
-            border-color: $theme-button-hover-color
+            border-color: $ruby
 
         &:before
           $w = .3rem
@@ -122,7 +178,7 @@
           height: h = w
           border: .5 * w solid $light-blue
           border-radius: w
-          background: transparent
+          background: $white
           content: ''
           line-height: h
   else
@@ -145,13 +201,14 @@
 
 a
   color: $a-link-color
-  text-decoration: none
-  word-wrap: break-word
   transition: all .2s
-  overflow-wrap: break-word
 
   &:hover
     color: $light-blue
+    text-decoration: none
+
+  &#site-name
+    text-decoration: none
 
 a.fancybox
   outline: none
@@ -162,6 +219,10 @@ a.fancybox
   display: inline-block
   width: 100%
   text-align: center
+  text-decoration: none
+
+p
+  margin: 0 0 .8rem
 
 img
   max-width: 100%
@@ -179,14 +240,14 @@ img
     transition: all .3s
     transform: rotate(0)
 
-    & + .code-lang
+    & + .code_lang
       left: 30px
 
     &.code-closed
       transition: all .3s
       transform: rotate(-90deg) !important
 
-  .code-lang
+  .code_lang
     position: absolute
     left: 15px
     z-index: 1
@@ -218,6 +279,10 @@ img
     &:hover
       color: darken($highlight-aqua, 20%)
 
+@media screen and (min-width: $md)
+  .layout_post
+    width: $content-large-width
+
 .katex-wrap
   overflow: auto
 
@@ -226,14 +291,21 @@ img
       display: none
 
 .layout_post
-  margin: 0 auto
-  padding: 2rem 15px
+  margin: 40px auto
+  padding: 50px
   max-width: 1000px
+  border-radius: 8px
+  background: #fff
+  box-shadow: 0 4px 8px 6px rgba(7, 17, 27, .06)
+  transition: all .3s
+
+  &:hover
+    box-shadow: 0 4px 12px 12px rgba(7, 17, 27, .15)
 
   img
     display: block
 
-  .tag_share
+  & >.tag_share
     .post-meta
       &__tag-list
         display: inline-block
@@ -245,14 +317,16 @@ img
         width: fit-content
         border: 1px solid $light-blue
         border-radius: .6rem
+        background: $white
         color: $light-blue
+        text-decoration: none
         font-size: 12px
         cursor: pointer
         transition: all .2s ease-in-out
 
         &:hover
           background: $light-blue
-          color: $button-color
+          color: $white
 
     .post_share
       display: inline-block
@@ -270,7 +344,7 @@ img
           font-size: 15px
           line-height: 25px
 
-  .post-copyright
+  & > .post-copyright
     position: relative
     margin: 2rem 0 .5rem
     padding: .5rem .8rem
@@ -309,43 +383,47 @@ img
         padding-left: .3rem
 
         a
-          text-decoration: underline
           word-break: break-word
 
-          &:hover
-            text-decoration: none
+  #post
+    a
+      color: $light-blue
+      text-decoration: none
 
-#article-container
-  a
-    color: $theme-link-color
+      &:hover
+        text-decoration: underline
 
-    &:hover
-      text-decoration: underline
-
-  img
-    margin: 0 auto .8rem
-
-  p
-    margin: 0 0 .8rem
+    img
+      margin: .8rem auto
 
 @media screen and (max-width: 1024px)
   .layout_post
+    margin: 0 15px
     width: auto
 
 @media screen and (max-width: $sm)
   .layout_post
-    padding: 1rem 5px
+    margin: 0 5px
+    padding: 1.8rem 1rem
 
-    & > #post
-      padding: 1.8rem .7rem
+  #top-container
+    height: 18rem
 
-// adjust the layout width in big screen
-@media screen and (min-width: $lr)
-  .layout_post
-    max-width: 1300px
+    & > #post-info
+      bottom: 1rem
+      padding: 0 5%
 
-  .layout_page
-    max-width: 1500px
+      & > #post-title
+        font-size: 1.2rem
 
-    &.hide-aside
-      max-width: 1300px
+      & > #post-meta
+        font-size: 90%
+
+        & > span
+          display: none
+
+        .post-meta-pv-cv
+          display: block
+
+          .post-meta__separator:first-child
+            display: none
