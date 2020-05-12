@@ -23,12 +23,24 @@ Microsoft Azure 是微软提供的一整套云计算服务，它可以被用来�
 
 # Azure 尝鲜 —— CustomVision
 Microsoft Azure 上的内容非常丰富，这里我们先介绍其中一个服务 —— **Custom Vision**。
-[Custom Vision](https://azure.microsoft.com/en-us/services/cognitive-services/custom-vision-service/)是一个用于计算机视觉任务的端到端平台，我们可以在上面用自己的数据训练自己的模型，支持图像分类以及目标检测任务，按要求上传图片数据以及对应的label后即可开始训练，训练完可进行测试，评估模型性能，并可通过SDK调用已训练好的模型进行预测。
+## 什么是CustomVision
+[Custom Vision](https://azure.microsoft.com/en-us/services/cognitive-services/custom-vision-service/)：
+- 是一个用于计算机视觉任务的端到端平台
+- 支持图像分类以及目标检测任务
+- 支持训练、测试、部署
+- 支持通过SDK在自己的项目中调用已训练完的模型
 
 官方说明文档：[https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/)
 Quickstarts：[https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/getting-started-build-a-classifier](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/getting-started-build-a-classifier)
 
-## 1、创建Custom Vision resource
+## 为什么要用CustomVision
+- 无需自己搭建繁杂的深度学习后端算法
+- 可直接用于项目的快速验证
+- 齐全的模型评估指标，便于有效评估模型
+- 深度学习小白也能使用，非常友好
+
+## 开始使用CustomVision
+### 1、创建Custom Vision resource
 - 在上方搜索栏输入`custom vision`，找到并点击即可进入资源创建界面（[传送门](https://portal.azure.com/#create/Microsoft.CognitiveServicesCustomVision)）
 <img src="https://i.loli.net/2020/05/10/NcGlqJ2OgWARHDV.png" style="zoom: 75%;" />
 - 填写相应信息后点击`Review + create`进行创建
@@ -36,7 +48,7 @@ Quickstarts：[https://docs.microsoft.com/en-us/azure/cognitive-services/custom-
 - 创建完毕后显示如下界面，即表示创建成功
 ![](https://i.loli.net/2020/05/10/3DoAKPMHFy9TOiB.png)
 
-## 2、创建新项目
+### 2、创建新项目
 进入[https://customvision.ai/](https://customvision.ai/)，使用相同账号登录后，即可进入Custom Vision首页
 - 点击`NEW PROJECT`
 ![](https://i.loli.net/2020/05/10/aEr8FWUAXwV1Bzc.png)
@@ -45,7 +57,7 @@ Quickstarts：[https://docs.microsoft.com/en-us/azure/cognitive-services/custom-
 - 进入Project页面，接下来自由发挥即可，详细教程查看[官方文档](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/getting-started-build-a-classifier)
 ![](https://i.loli.net/2020/05/10/tBf4cH2yDwKALXn.png)
 
-## 3、SDK调用
+### 3、SDK调用
 > 考虑到AI算法多是用Python编写，因此本文主要介绍Python SDK
 
 - 训练部分不再赘述
