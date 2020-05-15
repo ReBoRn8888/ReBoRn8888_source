@@ -43,10 +43,46 @@ cover: https://i.loli.net/2020/05/10/y9H2VhYWEjJdNXr.jpg
 - **Azure Key Vault**：用于管理数字证书
 
 整体流程可以概括如下：
-- 1、**创建** Web App resource（Required）
-- 2、**部署**网站（Required）
-- 3、购买**域名**、添加**域名**（Optional）
-- 4、添加**SSL认证**（Optional）
+- 1、**搭建**本地网站（Required）
+- 2、**创建** Web App resource（Required）
+- 3、**部署**网站（Required）
+- 4、购买**域名**、添加**域名**（Optional）
+- 5、添加**SSL认证**（Optional）
+
+### 搭建本地网站
+> 此处以ASP. NET为例搭建网站。
+我们打开 Visual Studio，新建项目，搜索 ASP. NET，会发现有两种类型：
+- 1、**ASP. NET Web App**：是**Windows**上用来构建企业级、基于**服务器**的Web App的成熟的框架。
+- 2、**ASP. NET Core Web App**：是对 ASP. NET 的重新设计，是一个开源的、**跨平台**的用来构建基于**云**的现代Web App的框架。
+![](https://rebornas.blob.core.windows.net/rebornhome/AzureAppService%2Faspdotnet.png)
+二者的区别可参考[官方文档](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/choose-aspnet-framework?view=aspnetcore-3.1)，此处作一归纳：
+
+| ASP. NET Core                  | ASP. NET                                   |
+| :------:                      | :----------------:                        |
+| 支持Windows、macOS、Linux       |      支持Windows                          |
+| 推荐使用Razor Pages创建网页    |      使用Web Forms、Web Pages等创建网页     |
+| 支持单机多版本                 |      单机单版本                            |
+| 性能强于 ASP. NET               |     正常性能                               |
+| C#、F#                         |    C#、VB、F#                               |
+
+创建完后会生成如下的项目结构：
+- **ASP. NET Core -- Web Application**
+![](https://rebornas.blob.core.windows.net/rebornhome/AzureAppService%2FDotNetCoreWebApp.png)
+    - **wwwroot** : 放置css、js和lib文件
+    - **Pages** : 放置所有的 Razor 页面文件，后缀为**.cshtml**，可以在一个文件中同时使用C#和HTML语言进行编写
+    - **appsettings.json** : 配置文件
+    - **Program.cs** : Web App 主函数文件，用来开启Web服务
+    - **Startup.cs** : 用来注册当前Web App用到的所有服务项
+
+- **ASP. NET -- Web Form**
+![](https://rebornas.blob.core.windows.net/rebornhome/AzureAppService%2FDotNetWebForm.png)
+    - **xxxx.aspx** : ASP. NET 页面文件，后缀为**.aspx**
+    - **Default.aspx** : Web 主页文件
+    - **Site.Master** : 用于为页面创建一致的布局和使用标准
+    - **Global.asax** : （可选）用于相应由 ASP. NET 或 HTTP 模块引发的应用程序级事件和会话级事件的代码
+    - **Web.config** : 配置文件
+
+直接上传到Github或者DevOps即可。
 
 ### 创建 Web App resource
 ![](https://rebornas.blob.core.windows.net/rebornhome/AzureAppService%2FAzureWebApp.png)
@@ -69,9 +105,9 @@ cover: https://i.loli.net/2020/05/10/y9H2VhYWEjJdNXr.jpg
 - 接着在**DNS Zone**中添加“**Record set**”，**Type**选择"CNAME"。
 
 > 这里介绍一下“**A Record**”和“**CNAME Record**”：
->	- **A Record**：直接指向网站IP地址，若直接使用**A Record**，容易遭到DDOS攻击。
->	- **CNAME Record**：指向网站的域名，也叫“别名”，**CNAME Record**指向的域名最终也指向**A Record**，也就是说，在按需更换IP地址的过程中，无需变更**CNAME Record**的值。
->	- 域名解析建议使用**CNAME Record**。
+>   - **A Record**：直接指向网站IP地址，若直接使用**A Record**，容易遭到DDOS攻击。
+>   - **CNAME Record**：指向网站的域名，也叫“别名”，**CNAME Record**指向的域名最终也指向**A Record**，也就是说，在按需更换IP地址的过程中，无需变更**CNAME Record**的值。
+>   - 域名解析建议使用**CNAME Record**。
 
 - 之后就可以`Add Custom Domains`了，用于从新的域名访问当前网站。[Learn more](https://docs.microsoft.com/en-gb/azure/app-service/app-service-web-tutorial-custom-domain)
 
@@ -87,7 +123,7 @@ cover: https://i.loli.net/2020/05/10/y9H2VhYWEjJdNXr.jpg
 - 最后将已认证的证书绑定到之前添加的域名上（`TLS/SSL bindings`）。[Learn more](https://go.microsoft.com/fwlink/?linkid=849480)
 ![](https://rebornas.blob.core.windows.net/rebornhome/AzureAppService%2FAzureWebAppSSLBinding.png)
 - 至此，即可使用https对所添加的新域名进行安全访问。e.g.,
-	- 本站点旧域名：https://reborn8888.github.io 
-	- 本站点新域名：https://www.reborn8888.com 或 https://reborn8888.com
+    - 本站点旧域名：https://reborn8888.github.io 
+    - 本站点新域名：https://www.reborn8888.com 或 https://reborn8888.com
 
 以上所有详细操作可见[视频教程](https://channel9.msdn.com/Shows/Azure-Friday/App-Service-Domains)
