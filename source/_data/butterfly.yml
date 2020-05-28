@@ -11,7 +11,8 @@ menu:
   Categories: /categories/||fa fa-folder-open
   Link: /link/||fa fa-link
   About: /about/||fa fa-heart
-
+  # sitemap: /sitemap.xml || sitemap
+  
 # Favicon
 # ---------------
 favicon: /img/favicon.ico

@@ -35,5 +35,9 @@
     "live2d-widget-model-wanko": "^1.0.5",
     "markdown-it-katex": "^2.0.3",
     "shell-quote": "^1.7.2"
+  },
+  "devDependencies": {
+    "hexo-generator-baidu-sitemap": "^0.1.6",
+    "hexo-generator-sitemap": "^2.0.0"
   }
 }

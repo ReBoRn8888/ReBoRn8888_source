@@ -79,7 +79,7 @@ cover: https://i.loli.net/2020/05/10/y9H2VhYWEjJdNXr.jpg
     - **xxxx.aspx** : ASP. NET 页面文件，后缀为**.aspx**
     - **Default.aspx** : Web 主页文件
     - **Site.Master** : 用于为页面创建一致的布局和使用标准
-    - **Global.asax** : （可选）用于相应由 ASP. NET 或 HTTP 模块引发的应用程序级事件和会话级事件的代码
+    - **Global.asax** : （可选）用于响应由 ASP. NET 或 HTTP 模块引发的应用程序级事件和会话级事件的代码
     - **Web.config** : 配置文件
 
 直接上传到Github或者DevOps即可。
@@ -127,3 +127,59 @@ cover: https://i.loli.net/2020/05/10/y9H2VhYWEjJdNXr.jpg
     - 本站点新域名：https://www.reborn8888.com 或 https://reborn8888.com
 
 以上所有详细操作可见[视频教程](https://channel9.msdn.com/Shows/Azure-Friday/App-Service-Domains)
+
+
+# Azure Key Vault
+官网： [Homepage](https://azure.microsoft.com/en-us/services/key-vault/)
+官方文档： [Doc](https://docs.microsoft.com/en-us/azure/key-vault/)
+
+![](https://rebornas.blob.core.windows.net/rebornhome/AzureAppService%2FKeyVaultHomepage.png)
+
+## 什么是 Azure Key Vault
+> 上文中其实已经用到了 Azure Key Vault 这一安全领域的服务，用来存储 Web App 的认证证书。
+
+宏观上看，Azure Key Vault 是一项用于**方便、快捷**地存储应用程序机密的集中式云服务，Key Vault 通过将应用程序机密保存在一个中心位置，并提供**安全访问**、**权限控制**和**访问日志记录**，来帮助控制这些机密。
+
+机密主要包括三大类：
+- **Keys** —— 密钥
+- **Secrets** —— 密码、连接字符串
+- **Certificates** —— 电子证书
+
+## Azure Key Vault 的优点
+- **分离**敏感信息与程序代码，降低意外泄露的风险
+- 通过为需要访问权限的应用程序和个人定制的访问策略实现**有限制的**机密访问
+- **集中式**机密存储，只允许在一个位置进行所需的更改
+- 通过**日志**，快速了解在何时以何种方式访问了机密
+
+## 在 Web App 中调用
+官方示例代码： [Official Github Repo](https://github.com/Azure-Samples/key-vault-dotnet-core-quickstart)
+
+流程如下：
+- 1、创建一个 **Azure Key Vault**
+- 2、将一个 **secret** 加入Azure Key Vault中
+- 3、使用 Official Github Repo 中的代码，按照[上文流程](#开始使用)在 Azure 中部署一个 **Web App**
+- 4、在 **Azure Active Directory** 中注册这个App （Azure Active Directory => App registrations => New registration）
+- 5、在 Web App resource 中 **Turn on Identity** (Web App => Identity => On => Save)
+- 6、在 Key Vault 中添加对应这个 Web App 的权限 (Key Vault => **Access policies** => Add Access Policy)
+- 7、即可访问 Key Vault 中的 secrets ([Demo](https://rebornkeyvaultdotnetcorequickstart.azurewebsites.net/About))
+
+> 若不进行步骤4、5、6，则会因为没有权限访问 Key Vault 而报错 `Error502.5`
+
+## 在 Console 中调用
+官方示例文档： [Official Doc](https://docs.microsoft.com/en-us/azure/key-vault/secrets/quick-create-net)
+官方示例代码： [Official Github Repo](https://github.com/Azure-Samples/key-vault-dotnet-core-quickstart/tree/master/key-vault-console-app)
+
+```csharp
+// <authenticate>
+string keyVaultName = "<YOUR_KEY_VAULT_NAME>";
+var kvUri = "https://" + keyVaultName + ".vault.azure.net";
+var client = new SecretClient(new Uri(kvUri), new DefaultAzureCredential());
+
+// <getsecret>
+string secretName = "<YOUR_SECRET_NAME>";
+KeyVaultSecret secret = client.GetSecret(secretName);
+Console.WriteLine("Your secret is '" + secret.Value + "'.");
+```
+
+> **注意**：若直接在本地运行，会因为没有权限访问Key Vault，报 `403 (Forbidden) : xxx does not have secrets get permission on key vault xxx`。可将上述代码放入 Web App 中任意位置，Deploy后即可成功访问。
+> 上述代码只展示了读取secret操作，其他更多操作见 [Official Github Repo](https://github.com/Azure-Samples/key-vault-dotnet-core-quickstart/tree/master/key-vault-console-app)
