@@ -1,5 +1,5 @@
 ---
-title: Word2Vec
+title: NLP 学习笔记① —— Word2Vec
 date: 2020-05-27 17:53:57
 tags: [NLP]
 categories: 学习笔记
@@ -133,6 +133,8 @@ $$P\left(w_{i}\right)=\frac{f\left(w_{i}\right)^{\frac{3}{4}}}{\sum_{j=0}^{n}\le
 - 无需预训练好的词向量，可自己从头训练
 - 两个关键 Contribution：Hierarchical Softmax、N-gram
 
+![](https://rebornas.blob.core.windows.net/rebornhome/word2vec%2FfastText.png)
+
 FastText 和 CBOW 模型十分相似，均由一个输入层、一个隐含层和一个输出层组成。CBOW 通过上下文的几个单词来预测中间单词；而FastText将一整个需要分类的句子整理成 N 个 N-gram特征，来预测这整个句子的类别。
 
 ### Hierarchical Softmax
@@ -211,9 +213,10 @@ Word2Vec 以及 Doc2Vec 一般使用第三方库 gensim进行操作，可参考�
 - [Gensim Doc2Vec](https://radimrehurek.com/gensim/models/doc2vec.html)
 - [Kaggle Tutorial](https://www.kaggle.com/c/word2vec-nlp-tutorial/overview/part-2-word-vectors)
 - [Word2vec Python Tutorial](https://rare-technologies.com/word2vec-tutorial/)
+- [FastText Github Repo](https://github.com/facebookresearch/fastText)
 
 # Reference
 [1] Word2Vec Tutorial1: [McCormick, C. (2016, April 19). Word2Vec Tutorial - The Skip-Gram Model](http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/)
 [2] Word2Vec Tutorial2: [McCormick, C. (2017, January 11). Word2Vec Tutorial Part 2 - Negative Sampling](http://mccormickml.com/2017/01/11/word2vec-tutorial-part-2-negative-sampling/)
 [3] 李宏毅课程: [https://www.youtube.com/watch?v=X7PH3NuYW0Q](https://www.youtube.com/watch?v=X7PH3NuYW0Q)
-[4] FastText: [fastText原理及实践](https://zhuanlan.zhihu.com/p/32965521)
+[4] FastText Tutorial: [fastText原理及实践](https://zhuanlan.zhihu.com/p/32965521)
