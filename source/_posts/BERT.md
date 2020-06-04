@@ -37,18 +37,19 @@ cover: https://rebornas.blob.core.windows.net/rebornhome/BERT%2FBERT-family.png
 BERT 的网络架构实际上就是 [Transformer](https://arxiv.org/pdf/1706.03762.pdf) 中的 Encoder 部分，即下图中的左半部分。
 ![](https://rebornas.blob.core.windows.net/rebornhome/BERT%2FTransformer.png)
 
-关于 Transformer 的知识点，可以参考[视频](https://www.youtube.com/watch?v=ugWDIIOHtPA&pbjreload=101)来学习，这里简要介绍一下。Transformer 是一种注意力机制，可以学习文本中单词间的上下文关系。Transformer 的关键点在于一个叫做 Self-Attention Layer 的层，输入一个 Sequence，输出也是一个 Sequence，即Seq2Seq。
+关于 Transformer 的知识点，可以参考[视频](https://www.youtube.com/watch?v=ugWDIIOHtPA&pbjreload=101)或[Blog](https://jalammar.github.io/illustrated-transformer/)来学习，这里简要介绍一下。Transformer 是一种注意力机制，可以学习文本中单词间的上下文关系。Transformer 的关键点在于一个叫做 Self-Attention Layer 的层，输入一个 Sequence，输出也是一个 Sequence，即Seq2Seq。
 
 下面给出用 Transformer 做**机器翻译**的动图（来自[Google AI Blog](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)），帮助理解：
 
 ![](https://rebornas.blob.core.windows.net/rebornhome/BERT%2Ftransform20fps.gif)
 Transformer 包含两个阶段：
-- Encode（for Embedding）:
-	- 为 Encoder 输入一个 Sequence：`I arrived at the ...`
-	- 每个 Word 之间互相做 Attention
+- Encoder（for Embedding）:
+	- 输入一个 Sequence：`I arrived at the ...`
+	- 通过 Word2Vec 或其他 Word embedding 算法得到所有 Word vectors
+	- 每个 Word vector 之间互相做 Attention
 	- 经过 n 层 Attention
-	- 输出一个 Sequence
-- Decode（for Prediction）：
+	- 输出一个 Embedding sequence
+- Decoder（for Prediction）：
 	- 为 Decoder 输入一个表示开始的 Token：`start`
 	- Encoder 的输出 Sequence 的每个结点分别与该 Token 做 Attention
 	- 经过 n 层 Attention，预测出下一个词：`Je`
