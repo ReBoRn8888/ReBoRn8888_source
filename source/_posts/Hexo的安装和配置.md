@@ -12,6 +12,7 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 
 ### Installation
 ```bash
+# Install node.js (https://nodejs.org/en/download/)
 # Because npm is too slow in China, we use cnpm(http://npm.taobao.org/) for installation
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 # Install hexo

@@ -9,7 +9,17 @@ cover: https://i.loli.net/2020/02/14/lgWzFDvHry8bsdB.jpg
 
 {% meting "27901061" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
 
-# matplotlib.pyplot 
+# matplotlib.pyplot
+## Turn off X display
+We may encounter the following issue if we are using a system without UI (e.g. Linux, Unix):
+> QXcbConnection: Could not connect to display xxxxx
+> Could not connect to any X display
+
+```python
+import matplotlib
+matplotlib.use('Agg')
+```
+
 ## Plot with annotation (Object Detection Task)
 ```python
 import matplotlib.pyplot as ply

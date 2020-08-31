@@ -9,6 +9,12 @@ cover: https://i.loli.net/2020/02/14/YXEOI3Txj7HJqRa.jpg
 
 {% meting "1348625245" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
 
+# 安装PyTorch with CUDA 10.0
+```bash
+conda install pytorch==1.2.0 torchvision==0.4.0 cudatoolkit=10.0 -c pytorch
+conda install cudnn
+```
+
 # 选择运算设备(CPU/GPU)
 ```python
 def select_device(device='', apex=False, batch_size=None):
