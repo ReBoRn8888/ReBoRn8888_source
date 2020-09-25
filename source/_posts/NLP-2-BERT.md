@@ -1,5 +1,5 @@
 ---
-title: NLP 学习笔记② —— BERT
+title: NLP 学习笔记 II —— BERT
 date: 2020-05-29 10:42:53
 tags: [NLP]
 categories: 学习笔记

@@ -1,10 +1,10 @@
 ---
-title: Azure 使用笔记③ —— Azure App Service
+title: Azure 学习笔记 III —— Azure App Service
 date: 2020-05-12 13:55:59
 tags: [Microsoft, Azure]
 categories: 学习笔记
 top_img:
-cover: https://i.loli.net/2020/05/10/y9H2VhYWEjJdNXr.jpg
+cover: https://rebornas.blob.core.windows.net/rebornhome/AzureAppService/AzureAppServiceLogo.png
 ---
 
 {% meting "760173" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}

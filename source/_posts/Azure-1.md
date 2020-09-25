@@ -1,10 +1,10 @@
 ---
-title: Azure 使用笔记① —— 初见 Azure
+title: Azure 学习笔记 I —— 初见 Azure
 date: 2020-05-10 12:03:52
 tags: [Microsoft, Azure, CognitiveService]
 categories: 学习笔记
 top_img:
-cover: https://i.loli.net/2020/05/10/y9H2VhYWEjJdNXr.jpg
+cover: https://rebornas.blob.core.windows.net/rebornhome/Azure.jpg
 ---
 
 {% meting "1440622059" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
@@ -14,12 +14,12 @@ Microsoft Azure 是微软提供的一整套云计算服务，它可以被用来�
 
 # 创建 Azure 账号
 进入如下网址创建Azure账号即可开始使用： [https://azure.microsoft.com/en-us/free/](https://azure.microsoft.com/en-us/free/)
-![](https://i.loli.net/2020/05/10/M7RAp6NuSxly5FE.png)
+![](https://rebornas.blob.core.windows.net/rebornhome/Azure/CreateAzureAccount.png)
 可以选择“Start free”试用12个月的免费账号，体验25个永久免费的服务，并在30天内拥有$200的Azure免费额度。
 
 # Azure portal 首页导览
 可以通过[https://ms.portal.azure.com](https://ms.portal.azure.com)进入Azure首页
-![](https://i.loli.net/2020/05/10/x9bojerSU8COdRw.png)
+![](https://rebornas.blob.core.windows.net/rebornhome/Azure/AzurePortalHomePage.png)
 
 # Azure 尝鲜 —— CustomVision
 Microsoft Azure 上的内容非常丰富，这里我们先介绍其中一个服务 —— **Custom Vision**。
@@ -42,42 +42,42 @@ Quickstarts：[https://docs.microsoft.com/en-us/azure/cognitive-services/custom-
 ## 开始使用CustomVision
 ### 1、创建Custom Vision resource
 - 在上方搜索栏输入`custom vision`，找到并点击即可进入资源创建界面（[传送门](https://portal.azure.com/#create/Microsoft.CognitiveServicesCustomVision)）
-<img src="https://i.loli.net/2020/05/10/NcGlqJ2OgWARHDV.png" style="zoom: 75%;" />
+<img src="https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionSearch.png" style="zoom: 75%;" />
 - 填写相应信息后点击`Review + create`进行创建
-![](https://i.loli.net/2020/05/10/HA5YdI8oPTbFENM.png)
+![](https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionCreate.png)
 - 创建完毕后显示如下界面，即表示创建成功
-![](https://i.loli.net/2020/05/10/3DoAKPMHFy9TOiB.png)
+![](https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionCreateSuccess.png)
 
 ### 2、创建新项目
 进入[https://customvision.ai/](https://customvision.ai/)，使用相同账号登录后，即可进入Custom Vision首页
 - 点击`NEW PROJECT`
-![](https://i.loli.net/2020/05/10/aEr8FWUAXwV1Bzc.png)
+![](https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionHomePage.png)
 - 输入Project相关信息后，点击`Create project`
-<img src="https://i.loli.net/2020/05/10/62jDFBT9yPRbSJQ.png" style="zoom: 65%;" />
+<img src="https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionNewProject.png" style="zoom: 65%;" />
 - 进入Project页面，接下来自由发挥即可，详细教程查看[官方文档](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/getting-started-build-a-classifier)
-![](https://i.loli.net/2020/05/10/tBf4cH2yDwKALXn.png)
+![](https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionInProject.png)
 
 ### 3、SDK调用
 > 考虑到AI算法多是用Python编写，因此本文主要介绍Python SDK
 
 - 训练部分不再赘述
 - Publish已训练好的模型
-![](https://i.loli.net/2020/05/10/VmYaNOkZbrdBI4P.png)
+![](https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionPublish.png)
 - Publish完成后，显示如下界面，记住图中红框处的`Published as`，之后调用SDK要用
-![](https://i.loli.net/2020/05/10/tZ3wRTalFcQGCIe.png)
+![](https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionPublishAs.png)
 - 点击“小齿轮”，找到并记录图中红框处的`Project id`，之后调用SDK要用
-![](https://i.loli.net/2020/05/10/YCrRyPnDK1FWpOg.png)
+![](https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionProjectID.png)
 - 在Azure portal中找到之前创建的“Prediction resource”，进入“Keys and Endpoint”，里面可以找到`Key`和`Endpoint`，记下来，之后调用SDK要用
-![](https://i.loli.net/2020/05/10/JkL7nFDd6N5ZPVI.png)
+![](https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionKey.png)
 - 同理，在“Properties”里可以找到`Resource ID`，记下来，之后调用SDK要用
-![](https://i.loli.net/2020/05/10/1zMCE9eYU3GWfH5.png)
+![](https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionResourceID.png)
 - 下面，我们使用Python SDK调用已训练好并Publish的模型对本地数据进行预测
 	- 首先pip安装azure-cognitiveservices-vision-customvision包：
 	```bash
 pip install azure-cognitiveservices-vision-customvision
 	```
 	> 若下载超时或无法下载，可以去Pypi下载离线安装包：[https://pypi.org/project/azure-cognitiveservices-vision-customvision/#files](https://pypi.org/project/azure-cognitiveservices-vision-customvision/#files)，如图：
-	![](https://i.loli.net/2020/05/10/D69BukqZQax4SRb.png)
+	![](https://rebornas.blob.core.windows.net/rebornhome/Azure/AzureCustomVisionPythonSDK.png)
 	```bash
 pip install azure_cognitiveservices_vision_customvision-1.0.0-py2.py3-none-any.whl
 	```

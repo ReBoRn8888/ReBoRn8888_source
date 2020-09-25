@@ -1,5 +1,5 @@
 ---
-title: NLP 学习笔记① —— Word2Vec
+title: NLP 学习笔记 I —— Word2Vec
 date: 2020-05-27 17:53:57
 tags: [NLP]
 categories: 学习笔记
