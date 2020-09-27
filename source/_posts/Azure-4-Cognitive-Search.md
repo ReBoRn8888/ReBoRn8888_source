@@ -16,6 +16,8 @@ cover: https://rebornas.blob.core.windows.net/rebornhome/AzureCognitiveSearch/Az
 
 > 简单来说，Azure Cognitive Search 是一个云上的**搜索服务**，它支持使用内置的 **AI** 来进行内容的挖掘（比如使用 Azure OCR 来提取图像中的文本内容，或使用 NLP 来进行文本语义信息的抽取），以扩展其搜索能力。
 
+DEMO Site: [https://wolterskluwereap.azurewebsites.net/](https://wolterskluwereap.azurewebsites.net/)
+
 # 为什么要使用 Azure Cognitive Search
 Azure Cognitive Search 主要有以下特点：
 - 是一项**完全托管**的搜索服务，降低了复杂性并可轻松实现扩展
@@ -33,6 +35,8 @@ Azure Cognitive Search 主要有以下特点：
 ![](https://rebornas.blob.core.windows.net/rebornhome/AzureCognitiveSearch/AzureCognitiveSearchAIEnrichment.png)
 
 # 快速入门
+Azure Cognitive Search 可以直接在 Azure Portal 中使用，包括引入数据源、创建索引、创建简单的 Demo App 等。当然也支持其他许多的 SDK ，这里主要重点提一下 .Net 和 Postman。
+
 ## Azure Portal
 - 1、创建 Search Service（[Tutorial Link](https://docs.microsoft.com/en-us/azure/search/search-create-service-portal)）
 - 2、创建索引`Index`（[Tutorial Link](https://docs.microsoft.com/en-us/azure/search/search-get-started-portal)）
