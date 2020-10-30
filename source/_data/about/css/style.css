@@ -438,19 +438,19 @@ ul li:hover ul {
 }
 
 .main-ML_Platform {
-	background: url('../Projects/images/ML_Platform/ML_Platform.png') no-repeat;
+	background: url('https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/ML_Platform.png') no-repeat;
 }
 
 .main-InUHeart {
-	background: url('../Projects/images/InUHeart/InUHeart.png') no-repeat;
+	background: url('https://rebornas.blob.core.windows.net/rebornhome/about/InUHeart.png') no-repeat;
 }
 
 .main-OpticalFilter {
-	background: url('../Projects/images/OpticalFilter/OpticalFilter.png') no-repeat;
+	background: url('https://rebornas.blob.core.windows.net/rebornhome/about/OpticalFilter.png') no-repeat;
 }
 
 .main-Campus {
-	background: url('../Projects/images/Campus/Campus.png') no-repeat;
+	background: url('https://rebornas.blob.core.windows.net/rebornhome/about/Campus.png') no-repeat;
 }
 
 #particles-js {
