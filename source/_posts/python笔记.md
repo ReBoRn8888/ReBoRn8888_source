@@ -102,3 +102,43 @@ print_matrix(map(reversed, a[::-1])) # 等价于print_matrix(map(reversed, rever
 >>> 6 5 4
 >>> 3 2 1
 ```
+
+# thread —— 捕获子线程异常
+> 当子线程中发生异常时，子线程生命周期结束，可在主进程中通过判断子线程状态来返回异常
+
+```python
+from threading import Thread
+
+class thread1:
+    def __init__(self):
+        pass
+    def start(self):
+        self.t = Thread(target=self.update, args=())
+        self.t.daemon = True
+        self.t.start()
+        return self
+    def update(self):
+        pass
+
+if(__name__ == '__main__'):
+    tt = thread1()
+    tt.start()
+    while(1):
+        if(not tt.t.is_alive()):
+            raise Exception
+```
+
+# 打印异常信息
+- traceback.print_exc(): 直接打印异常信息
+- traceback.format_exc(): 返回异常信息的字符串，便于记录到日志中
+
+```python
+import traceback
+
+try:
+    # Some Exception
+except:
+    print(traceback.format_exc())
+    # or
+    traceback.print_exc()
+```
