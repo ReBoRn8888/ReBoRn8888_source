@@ -1,7 +1,7 @@
 ---
 title: Azure 学习笔记 V —— Personalizer
 date: 2020-09-25 11:40:55
-tags: [Microsoft, Azure]
+tags: [Microsoft, Azure, Recommendation]
 categories: 学习笔记
 top_img:
 cover: https://rebornas.blob.core.windows.net/rebornhome/AzurePersonalizer/AzurePersonalizerLogo.png
