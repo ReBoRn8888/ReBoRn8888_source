@@ -32,16 +32,19 @@ cover: https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/STT.png
 - REST API
 
 # 快速入门
-> 此处我们以 C# 为例，其他语言可从对应的 Github Repo 中找到相应的代码
+## 相关资源
+> 此处我们以 C# 为例，其他语言可从对应的官方 Github Repo 中找到相应的代码
 
-- [Official Tutorial](https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=script%2Cbrowser%2Cwindowsinstall&pivots=programming-language-csharp)
-- [Source Code](https://github.com/Azure-Samples/cognitive-services-speech-sdk/tree/master/quickstart/csharp/dotnet)
+- Official Tutorial：[Microsoft-Doc](https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=script%2Cbrowser%2Cwindowsinstall&pivots=programming-language-csharp)
+- Source Code：[Github-Repo](https://github.com/Azure-Samples/cognitive-services-speech-sdk/tree/master/quickstart/csharp/dotnet)
+- 根据 Tutorial 自己实现的 Sample Code：[DevOps-Repo](https://dev.azure.com/RebornAzureLearning/AzureSpeechService/_git/STT)
 
+## 输入方式
 **Azure Speech to Text** 支持两种数据输入的方式：
 1. 麦克风：`AudioConfig.FromDefaultMicrophoneInput()`
 1. wav 音频文件（必须且只能是 wav 文件，其他格式需要通过工具转换为 wav 后方可识别）：`AudioConfig.FromWavFileInput("PathToFile.wav")`
 
-> 注：以上两种方法只支持单个语句的识别，即末尾沉默时认定为是一个语句的结束，且最长单句时间限定为15秒。若要连续识别，可通过调用`await recognizer.StartContinuousRecognitionAsync();`来实现。（[Tutorial](https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=script%2Cbrowser%2Cwindowsinstall&pivots=programming-language-csharp#continuous-recognition)）
+> 注：以上两种方法只支持单个语句的识别，即末尾沉默时认定为是一个语句的结束，且最长单句时间限定为15秒。若要连续识别，可通过调用`await recognizer.StartContinuousRecognitionAsync();`来实现。（[Tutorial-ContinuousRecognition](https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=script%2Cbrowser%2Cwindowsinstall&pivots=programming-language-csharp#continuous-recognition)）
 
 # Custom Speech
 ![](https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/CustomSpeechHomePage.png)
@@ -50,7 +53,10 @@ cover: https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/STT.png
 
 虽然 Azure 上已经自带了很多通用的语言模型，对于大部分常见场景都有覆盖，效果也都还不错，但对于某些特定场景，比如某些专业领域的词汇就会有所欠缺。因此我们需要针对这些特定的场景进行定制化的优化，这就需要用我们自己的数据去 finetune 已有的模型，来达到特定场景下的高性能要求。
 
-Custom Speech 提供了如下功能模块：
+下图展示了 **Custom Speech** 的 Workflow：
+![](https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/CustomSpeechOverview.png)
+
+**Custom Speech** 提供了如下功能模块：
 ![](https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/CustomSpeechModules.png)
 - **[Data](#data)**：用于数据集的上传，支持单音频用于测试，或者音频+人工标注的文本用于训练
 - **[Testing](#testing)**：可直接用 Azure 自带的模型，或者 customized 的模型进行测试
