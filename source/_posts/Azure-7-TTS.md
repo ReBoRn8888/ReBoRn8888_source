@@ -132,6 +132,87 @@ Model 模块包含如下三个阶段：
 	如果效果合适，则可将模型部署，便于代码中进行调用
 
 ## Endpoint
-模型部署完后会生成一个 endpoint 节点，参照如下代码即可使用该模型生成语音。
-
+模型部署完后会生成一个 endpoint 节点，参照下图所示的指引即可使用该模型生成语音。
 ![](https://rebornas.blob.core.windows.net/rebornhome/AzureTTS/CustomVoiceEndpoint.png)
+
+值得注意的是，代码中用到了一个叫做 `accessToken` 的变量，我们需要手动去请求（参考 [Doc](https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/rest-text-to-speech#c-sample)），所以创建了一个 Authentication 类用来请求 `accessToken`，完整的 C# 代码如下：
+```csharp
+public class Authentication
+{
+    public static readonly string FetchTokenUri =
+        "https://[MY-REGION].api.cognitive.microsoft.com/sts/v1.0/issueToken";
+    private string subscriptionKey;
+    private string token;
+
+    public Authentication(string subscriptionKey)
+    {
+        this.subscriptionKey = subscriptionKey;
+        this.token = FetchTokenAsync(FetchTokenUri, subscriptionKey).Result;
+    }
+
+    public string GetAccessToken()
+    {
+        return this.token;
+    }
+
+    private async Task<string> FetchTokenAsync(string fetchUri, string subscriptionKey)
+    {
+        using (var client = new HttpClient())
+        {
+            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+            UriBuilder uriBuilder = new UriBuilder(fetchUri);
+
+            var result = await client.PostAsync(uriBuilder.Uri.AbsoluteUri, null);
+            Console.WriteLine("Token Uri: {0}", uriBuilder.Uri.AbsoluteUri);
+            return await result.Content.ReadAsStringAsync();
+        }
+    }
+}
+
+static async Task SynthesizeFromEndpoint()
+{
+    Authentication authentication = new Authentication("[MY-SUBSCRIPTION-KEY]");
+
+    string host = "[MY-ENDPOINT-URL]";
+
+    string accessToken = authentication.GetAccessToken();
+
+    // A sample SSML
+    string body = "< speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\" xmlns:mstts=\"http://www.w3.org/2001/mstts\" xml:lang=\"zh-CN\">< voice name=\"[MY-MODEL-NAME]\">你好，这是我的自定义语音。< /voice>< /speak>";
+
+    // Get audio from endpoint
+    using (HttpClient client = new HttpClient())
+    {
+        using (HttpRequestMessage request = new HttpRequestMessage())
+        {
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(host);
+            request.Content = new StringContent(body, Encoding.UTF8, "application/ssml+xml");
+            request.Headers.Add("Authorization", "Bearer " + accessToken);
+            request.Headers.Add("Connection", "Keep-Alive");
+            request.Headers.Add("User-Agent", "[MY-RESOURCE-NAME]");
+            request.Headers.Add("X-Microsoft-OutputFormat", "riff-24khz-16bit-mono-pcm");
+
+            using (HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false))
+            {
+                response.EnsureSuccessStatusCode();
+                using (Stream dataStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+                {
+                    using (FileStream fileStream = new FileStream(@"sample.wav", FileMode.Create, FileAccess.Write, FileShare.Write))
+                    {
+                        await dataStream.CopyToAsync(fileStream).ConfigureAwait(false);
+                        fileStream.Close();
+                    }
+                }
+            }
+        }
+    }
+}
+```
+其中，
+- **[MY-SUBSCRIPTION-KEY]**：替换为自己创建的 Cognitive Service resource 的 key
+- **[MY-ENDPOINT-URL]**：替换为自己生成的 `Endpoint URL`
+- **[MY-MODEL-NAME]**：替换为自己生成的 `Voice / Model name`
+- **[MY-RESOURCE-NAME]**：替换为自己创建的 Cognitive Service resource 的 name
+- **[MY-REGION]**：替换为自己的 resource 所在的 region
+- **string body**：将 `<` 后面的空格删去，此处加上空格是为了避免浏览器将 xml 语法误渲染导致的显示不全
