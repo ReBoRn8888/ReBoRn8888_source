@@ -16,10 +16,10 @@ cover: https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/STT.png
 **Azure Speech to Text**，简称**STT**，是 [Azure Cognitive Service](https://azure.microsoft.com/en-us/services/cognitive-services/) 中的一项 Speech Service，可以用 Azure 中已经预训练好的语言模型或者自定义的模型来将语音转化为文本，常用于 ChatBot 中的数据预处理阶段，将音频信号翻译为计算机可以理解的文本，便于后续的处理，比如后续用 [LUIS](https://www.luis.ai/) 提取意图（Intent）和实体（Entity），进而控制 Bot 进行相应的操作。
 
 **Azure Speech to Text** 具有以下特点：
-- 支持超过85种语言：[Language support](https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/language-support#speech-to-text)
-- 高精度的翻译：使用业界主流的高精度算法，达到 state-of-the-art 效果
-- 可定制化语言模型：[Custom Speech](#custom-speech)
-- 灵活的部署：可部署在云端或者通过容器部署在边缘设备中
+- 支持超过**85**种语言：[Language support](https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/language-support#speech-to-text)
+- **高精度**的翻译：使用业界主流的高精度算法，达到 state-of-the-art 效果
+- 可**定制化**语言模型：[Custom Speech](#custom-speech)
+- **灵活**的部署：可部署在云端或者通过容器部署在边缘设备中
 
 # 支持的编程语言
 - C#

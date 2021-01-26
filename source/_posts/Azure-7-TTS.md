@@ -17,9 +17,9 @@ cover: https://rebornas.blob.core.windows.net/rebornhome/AzureTTS/TTSLogo.png
 
 **Azure Text to Speech** 具有以下特点：
 - 流利自然的语音输出，符合人类听觉习惯
-- 支持200多种人物语音和超过50多种语言：[Language support](https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/language-support#text-to-speech)
-- 可自定义输出语音：[Custom Voice](#custom-voice)
-- 方便调整输出格式：语速、音调、口音等
+- 支持**200**多种人物语音和超过**50**多种语言：[Language support](https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/language-support#text-to-speech)
+- 可**自定义**输出语音：[Custom Voice](#custom-voice)
+- 方便**调整输出格式**：语速、音调、口音等
 
 # 支持的编程语言
 与 STT 一样，TTS 同样支持以下几种语言：

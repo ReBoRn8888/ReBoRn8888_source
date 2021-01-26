@@ -86,3 +86,47 @@ def resize_by_padding(img, height, width):
     constant = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=BLACK)
     return cv2.resize(constant, (height, width))
 ```
+
+## BufferedReader <==> np.array
+- 在调用 Azure Cognitive Service 中 Vision API 的时候，我们需要把输入的图片（np.array）转换为 API 可以接受的格式（BufferedReader）：
+```python
+import cv2
+from io import BufferedReader, BytesIO
+
+img = cv2.imread('xxx.jpg')
+stream = BufferedReader(BytesIO(cv2.imencode('.jpg', legend)[1].tobytes()))
+```
+
+- 当我们自己写了一个 swagger API，上传图像后我们需要对图像进行处理，但是后端实际上接收到的是 FileStorage 格式，我们要将其转换为图像（np.array）才能进行处理
+```python
+"""
+This is the OCR API
+Upload the barplot and return the results
+---
+tags:
+  - OCR API
+parameters:
+  - name: img
+    in: formData
+    description: Upload the barplot image
+    required: true
+    type: file
+responses:
+  500:
+    description: Unexpected error
+  200:
+    description: The results of the barplot recognition
+
+"""
+import cv2
+import numpy as np
+from io import BufferedReader, BytesIO
+
+# request为API接收的数据，此处为用户上传的图像，'img'为API中的参数名，见上文swagger API的定义
+stream = request.files['img'] # werkzeug.datastructures.FileStorage
+buf = BufferedReader(stream) # io.BufferedReader
+nparr = np.frombuffer(buf.read(), dtype=np.uint8) # np.array
+img = cv2.imdecode(nparr, cv2.IMREAD_COLOR) # np.array
+# 以上可以简化为
+# img = cv2.imdecode(np.frombuffer(BufferedReader(stream).read(), dtype=np.uint8), cv2.IMREAD_COLOR)
+```
