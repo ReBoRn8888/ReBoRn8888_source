@@ -1,10 +1,10 @@
 ---
 title: Azure笔记
 date: 2021-05-19 19:56:39
-tags:
-categories:
+tags: [Microsoft, Azure]
+categories: 学习笔记
 top_img:
-cover:
+cover: https://rebornas.blob.core.windows.net/rebornhome/Azure.jpg
 ---
 
 {% meting "523250334" "netease" "song" "autoplay" "mutex:false" "listmaxheight:340px" "preload:auto" "theme:#ad7a86"%}
