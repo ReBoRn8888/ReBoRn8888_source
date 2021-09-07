@@ -33,6 +33,8 @@ cover: https://rebornas.blob.core.windows.net/rebornhome/AzureTTS/TTSLogo.png
 - REST API
 
 # 快速入门
+## DEMO
+[https://reborntts2.azurewebsites.net/apidocs/](https://reborntts2.azurewebsites.net/apidocs/)
 ## 相关资源
 > 此处我们以 C# 为例，其他语言可从对应的官方 Github Repo 中找到相应的代码
 
