@@ -34,7 +34,12 @@
     "live2d-widget-model-shizuku": "^1.0.5",
     "live2d-widget-model-wanko": "^1.0.5",
     "markdown-it-katex": "^2.0.3",
-    "shell-quote": "^1.7.2"
+    "shell-quote": "^1.7.2",
+    "glob-parent": ">=5.1.2",
+    "pug": ">=3.0.1",
+    "set-value": ">=4.0.1",
+    "striptags": ">=3.2.0",
+    "highlight.js": ">=10.4.1"
   },
   "devDependencies": {
     "hexo-generator-baidu-sitemap": "^0.1.6",
