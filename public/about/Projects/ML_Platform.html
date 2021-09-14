@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<title>Machine Learning Platform</title>
+
+<link href="https://fonts.googleapis.com/css?family=Lora|Merriweather:300,400" rel="stylesheet">
+<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/APlayer.min.css">
+<!-- Main css -->
+<link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+<div id="aplayer"></div>
+
+<!-- PRE LOADER -->
+
+<div class="preloader">
+	<div class="sk-spinner sk-spinner-wordpress">
+		<span class="sk-inner-circle"></span>
+	</div>
+</div>
+
+<!-- Navigation section  -->
+
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+	<div class="container">
+
+		<div class="navbar-header">
+			<a href="https://reborn8888.github.io/about/" class="navbar-brand">Reborn</a>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="https://www.reborn8888.com">Home</a></li>
+			</ul>
+		</div>
+
+  </div>
+</div>
+
+<!-- Home Section -->
+<section id="home" class="main-ML_Platform parallax-section">
+	<div class="overlay-black"></div>
+	<div id="particles-js"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<h1>Machine Learning Platform</h1>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="page-nav-space-holder hidden-xs">
+	<div id="page-nav-wrapper" class="page-nav-wrapper text-center">
+		<div class="container">
+			<ul id="page-nav" class="nav page-nav list-inline" style="font-size: 20px;">
+				<li><a class="scrollto" href="#introduction-section">简&nbsp;&nbsp;&nbsp;&nbsp;介</a></li>
+				<li>
+					<a class="scrollto" href="#imageClassification-section">图 像 分 类</a>
+					<ul>
+						<li><a class="scrollto" href="#IC-train-section">训练</a></li>
+						<li><a class="scrollto" href="#IC-test-single-section">单张测试</a></li>
+						<li><a class="scrollto" href="#IC-test-multi-section">批量测试</a></li>
+						<li><a class="scrollto" href="#IC-predict-section">检测</a></li>
+					</ul>
+				</li>
+				<li>
+					<a class="scrollto" href="#objectDetection-section">目 标 检 测</a>
+					<ul>
+						<li><a class="scrollto" href="#OD-annotation-section">标注工具</a></li>
+						<li><a class="scrollto" href="#OD-train-section">训练</a></li>
+						<li><a class="scrollto" href="#OD-test-section">测试</a></li>
+						<li><a class="scrollto" href="#OD-predict_multi-section">检测</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="wrapper container">
+	<div class="blog-single-post-thumb">
+		<section id="introduction-section" class="section-big">
+			<b>项目地址</b>：<a href="https://github.com/ReBoRn8888/ML_Platform-private-">https://github.com/ReBoRn8888/ML_Platform-private-</a>
+			<h2 class="center_title">简介</h2>
+			这是一个通用的<b>机器学习平台</b>，包括<b>图像分类</b>和<b>目标检测</b>两大板块。 <br>
+			该程序将后端繁复冗长的代码进行包装，以友好的用户界面来展现，操作简单，结果展示一目了然，为用户提供优质的使用体验。 <br>
+			程序的框架如<b> 图 1 </b>所示：
+			<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/structure.bmp" alt=""/>
+			<div class="img-label">图 1 ：程序框架</div>
+		</section>	
+
+		<section id="imageClassification-section" class="section-big">
+			<h2 class="center_title">图像分类</h2>
+			<section id="IC-train-section" class="section">
+				<h3 class="center_title">训练阶段</h3>
+				<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/IC-train.png" alt=""/>
+				<div class="img-label">图 2-1 ：图像分类——训练阶段</div>
+				图像分类的<b>训练</b>阶段如<b> 图 2-1 </b>所示，各模块的名字和功能已经标示在图上。 <br><br>
+				<ol>
+					<li>训练之前，需要先将<font class="green">图片数据结构化</font>，即如<b> 图 2-1 </b>中绿色框所示：有n个类就创建n个文件夹，每个文件夹重命名为每个类名，之后将所有图片放到对应类别的文件夹下。</li>
+					<li><font class="red">图片目录</font>：点击右上角的<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/browse.png">按钮选取图片目录，选择绿色框中指示的“root”文件夹即可。</li>
+					<li><font class="red">所得模型保存的目录</font>：点击右上角的<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/browse.png">按钮选取模型保存目录，可以随便选取。</li>
+					<li><font class="red">选择网络结构</font>部分，有GoogleNet和AlexNet可选择，并可读取使用ImageNet数据集预训练的权重</li>
+					<li><font class="red">minibatch</font>：设置每次读到内存中的图片数量，防止因图片太多导致的内存溢出 </li>
+					<li><font class="red">Num_class</font>：数据集中的类别数</li>
+					<li><font class="red">Batch_size</font>：设置每次训练的时候输入网络的图片数量</li>
+					<li><font class="red">Learning_rate</font>：设置学习率，影响收敛速率</li>
+					<li><font class="red">Max_iter</font>：设置最大迭代次数</li>
+					<li><font class="red">Optimizer</font>：选择优化器（如梯度下降法GD）</li>
+				</ol>
+				<br>上面的全部<font class="red">参数</font>填写完毕后，点击程序左上角<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/run.png">按钮进行<b>训练</b>。<br><br>
+				<ul>
+					<li><font class="blue">Loss曲线</font>：<b> 图 2-1 </b>中蓝色框所示，在训练过程中可以实时监控Loss随着Epoch的变化</li>
+					<li><font class="yellow">Data Eval</font>：<b> 图 2-1 </b>中黄色框所示，对模型的评估结果记录在这个表格中，包括训练集和测试集各自的图片总数、预测正确的图片数以及最终的准确率。</li>
+				</ul>
+			</section>	
+
+			<section id="IC-test-single-section" class="section">
+				<h3 class="center_title">单张测试阶段</h3>
+				<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/IC-test_single.png"/>
+				<div class="img-label">图 2-2：图像分类——单张测试阶段</div>
+				图像分类的<b>单张测试</b>阶段如<b> 图 2-2 </b>所示，各模块的名字和功能已经标示在图上。 <br><br>
+				<ol>
+					<li>点击右上角的<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/browse.png">按钮选择图片，之后会在左侧的文本框显示完整<font class="red">图片路径</font></li>
+					<li><font class="red">Select</font>按钮：选择模型所在的目录，之后会在<font class="red">Model Name</font>下拉框中显示读取到的所有模型名字</li>
+					<li><font class="red">Model Name</font>下拉框：选择所要用的模型</li>
+					<li><font class="red">Load</font>按钮：加载3）中选择的模型，读取类别信息</li>
+					<li><font class="red">Network</font>下拉框：选择3）中模型所使用的网络结构</li>
+					<li><font class="red">Threshold</font>：设置阈值，当预测为ok的概率低于该阈值时，强制判为ng</li>
+				</ol>
+				<br>上面的全部<font class="red">参数</font>填写完毕后，点击程序左上角<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/run.png">按钮进行<b>测试</b>。<br><br>
+				<ul>
+					<li><font class="blue">Test Scores</font>：显示该模型对于该图片各类别的预测概率。左上角为对于该表格的颜色标识，表格中底色为红色的表示预测值，蓝色的表示实际值，当预测值和实际值相同时，底色为绿色</li>
+				</ul>
+			</section>	
+			<section id="IC-test-multi-section" class="section">
+				<h3 class="center_title">批量测试阶段</h3>
+				<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/IC-test_multi.png"/>
+				<div class="img-label">图 2-3：图像分类——批量测试阶段</div>
+				图像分类的<b>批量测试</b>阶段如上<b> 图 2-3 </b>所示，各模块的名字和功能已经标示在图上。 <br><br>
+				<ol>
+					<li>点击右上角的<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/browse.png">按钮选择目录，之后会在左侧的文本框显示完整<font class="red">图片目录</font></li>
+					<li><font class="red">Select</font>按钮：选择模型所在的目录，之后会在<font class="red">Model Name</font>下拉框中显示读取到的所有模型名字</li>
+					<li><font class="red">Model Name</font>下拉框：选择所要用的模型</li>
+					<li><font class="red">Load</font>按钮：加载3）中选择的模型，读取类别信息</li>
+					<li><font class="red">Network</font>下拉框：选择3）中模型所使用的网络结构</li>
+					<li><font class="red">Threshold</font>：设置阈值，当预测为ok的概率低于该阈值时，强制判为ng</li>
+				</ol>
+				<br>上面的全部<font class="red">参数</font>填写完毕后，点击程序左上角<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/run.png">按钮进行<b>测试</b>。<br><br>
+				<ul>
+					<li><font class="blue">Confusion Matrix</font>：混淆矩阵，用于直观显示各个类别单独的预测准确率。表格中的行表示实际类别，列表示预测类别，如第一行表示测试数据集中一共有185张ng的图片，其中131张被正确地预测为了ng，54张被错误地预测为了ok，所以对于ng这一类别的预测准确率为70.81%。</li>
+					<li><font class="blue">测试结果</font>：对所有测试数据的测试结果，包括图片总数、预测正确的图片数、整体准确率。</li>
+					<li><font class="green">测试图片详情</font>：可以查看所有预测错误的图片，如<b> 图 2-4 </b>所示。其中红色底代表预测值，蓝色底代表实际值。该窗口的标题栏代表当前图片索引号和图片总数，可以通过左右四个按钮进行切换查看。</li>
+				</ul>
+				<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/IC-test_multi_result.png">
+				<div class="img-label">图 2-4：批量测试阶段——测试详情</div>
+			</section>	
+			<section id="IC-predict-section" class="section">
+				<h3 class="center_title">检测阶段</h3>
+				<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/IC-predict.png"/>
+				<div class="img-label">图 2-5：图像分类——检测阶段</div>
+				图像分类的<b>预测</b>阶段如<b> 图 2-5 </b>所示，各模块的名字和功能已经标示在图上。 <br><br>
+				<ol>
+					<li>点击右上角的<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/file.png">按钮选择单个图片，或者点击<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/browse.png">按钮选择整个目录，之后会在左侧的文本框显示完整<font class="red">图片路径</font></li>
+					<li><font class="red">Select</font>按钮：选择模型所在的目录，之后会在<font class="red">Model Name</font>下拉框中显示读取到的所有模型名字</li>
+					<li><font class="red">Model Name</font>下拉框：选择所要用的模型</li>
+					<li><font class="red">Load</font>按钮：加载3）中选择的模型，读取类别信息</li>
+					<li><font class="red">Network</font>下拉框：选择3）中模型所使用的网络结构</li>
+					<li><font class="red">Threshold</font>：设置阈值，当预测为ok的概率低于该阈值时，强制判为ng</li>
+				</ol>
+				<br>上面的全部<font class="red">参数</font>填写完毕后，点击程序左上角<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/run.png">按钮进行<b>检测</b>。<br><br>
+				<ul>
+					<li><font class="blue">检测结果</font>：以列表的形式呈现，每张图片对应一个预测结果，并显示每张图片的<font class="green">缩略图</font>，便于查看。一次展示10张图片，可以通过下方的<font class="green">换页</font>按钮进行切换</li>
+					<li><font class="blue">结果统计</font>：统计预测结果中每一类的图片总量</li>
+				</ul>
+			</section>	
+		</section>	
+		<section id="objectDetection-section" class="section-big">
+			<h2 class="center_title">目标检测</h2>
+			<section id="OD-annotation-section" class="section">
+				<h3 class="center_title">图像标注工具</h3>
+				图像标注工具的界面如<b> 图 3-1 </b>所示：
+				<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-annotation.png"/>
+				<div class="img-label">图 3-1：目标检测——图像标注工具</div>
+				<ol>
+					<li><font class="red">Open Image</font>按钮：选择图片所在目录，之后会在下方<font class="blue">Image list</font>中显示图片列表下拉框中显示读取到的所有模型名字</li>
+					<li><font class="red">divide</font>选择器：根据图片（image）和标注文件（xml）是否在同一文件夹下进行选择。
+						<blockquote>
+							<ul>
+								<li>若原先的image和xml在同一文件夹下，则不选中，这样生成的新的xml将会保存在与image同一文件夹下</li>
+								<li>若原先的image和xml已经按照VOC 2007的目录格式存放，即如图<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-anno-structure.png">所示，其中<b>JPEGImages</b>存放图片，<b>Annotations</b>存放xml文件，则需要将divide选中，这样就会自动分别读取两个文件夹下的image和xml，保存的时候也会分开存放，新的xml将会存放在<b>Annotations</b>文件夹中</li>
+							</ul>
+						</blockquote>
+					</li>
+				</ol>
+				<ul>
+					<li><font class="blue">Image list</font>列表：列出通过<font class="red">Open Image</font>按钮所选目录中的所有图片名，并显示图片总数num。双击列表中的文件名即可新开一个窗口显示图片，并在左侧<font class="blue">XML Information</font>中展示该图片的标注信息，如<b> 图 3-2 </b>所示：</li>
+					<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-anno-demo.png"/>
+					<div class="img-label">图 3-2</div>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果原先就有对应这张图片的xml标注文件，则会自动读取并绘制在原图上，如<b> 图 3-2 </b>所示的eyes这个标注框</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此时标注工具主界面如下所示：</p>
+					<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-anno-ui.png"/>
+					<div class="img-label">图 3-3：标注工具主界面</div>
+					<li><font class="blue">XML Information</font>：用于展示当前图片所具有的的所有标注框的信息，如<b> 图 3-3 </b>所示，包括标注框的名字以及位置坐标，比如这张图现在只有一个框，名字叫eyes，框的左上角坐标为（159,195），框的右下角坐标为（475,294）。
+					<p>鼠标右击<font class="blue">XML Information</font>中标注框的名字，会弹出删除选项，如<b> 图 3-4 </b>所示：</p></li>
+					<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-anno-rclick.png"/>
+					<div class="img-label">图 3-4：标注框删除选项</div>
+					<blockquote>
+						<li><b>Delete RectBox</b>：删除当前标注框信息，同时也会删除图3-8中的标注框</li>
+					</blockquote>
+					<li><font class="green">Add</font>按钮：在<b> 图 3-2 </b>上画完新的标注框后，点击<font class="green">Add</font>按钮即可添加，同时刷新左侧<font class="blue">XML Information</font>列表</li>
+					<li><font class="green">Update</font>按钮：在<b> 图 3-2 </b>上编辑完原有的标注框后，点击<font class="green">Update</font>按钮即可进行更新，同时刷新左侧<font class="blue">XML Information</font>列表</li>
+					<li><font class="green">Save</font>按钮：将当前的所有标注信息保存为VOC 2007的标准xml格式，保存位置由之前的<font class="red">divide</font>选择器进行控制。</li>
+					<li>关于<font class="green">修改标注框</font>，我们可以直接在图片上拖动来进行修改：如<b> 图 3-5 </b>所示，当鼠标靠近标注框的某个顶点时，会将当前标注框高亮显示，即图上的eyes标注框，四个顶点<font class="red">红色</font>高亮，且鼠标所在顶点变为正方形，表示可以拖动，同时，<b> 图 3-5 </b>中右侧红框内也会自动加载当前标注框的信息，可以直接修改里面内容。</li>
+					<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-anno-demo2.png"/>
+					<div class="img-label">图 3-5：修改标注框</div>
+					<p>当我们修改完标注框后，点击<font class="green">Update</font>按钮进行更新即可，最后若要保存的话，点击<font class="green">Save</font>按钮即可。</p>
+					<p>我们稍微修改了一下，点击<font class="green">Update</font>按钮后效果如<b> 图 3-6 </b>：</p>
+					<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-anno-demo3.png"/>
+					<div class="img-label">图 3-6：修改后的效果</div>
+				</ul>
+			</section>	
+			<section id="OD-train-section" class="section">
+				<h3 class="center_title">训练阶段</h3>
+				<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-train.png"/>
+				<div class="img-label">图 3-7：目标检测——训练阶段</div>
+				目标检测的<b>训练</b>阶段如<b> 图 3-7 </b>所示，各模块的名字和功能已经标示在图上。 <br><br>
+				<ol>
+					<li><font class="red">数据目录</font>：选择数据所在目录，图片和标注文件可以放在同一个根目录下，会自动通过divide_dataset_into_images_and_xmls.py和make_VOC_dataset.py这两个python脚本将数据集整理成VOC 2007的标准目录格式，便于读取数据进行训练</li>
+					<li><font class="red">模型保存目录</font>：选择模型所要保存的位置</li>
+					<li><font class="red">Max_iter</font>：最大迭代次数</li>
+					<li><font class="red">Network</font>下拉框：网络结构，包括vgg16和res101 </li>
+					<li><font class="red">Model_Name</font>：模型名</li>
+					<li><font class="red">Data Augmentation</font>按钮：数据增强，包括旋转90°、180°、270°、水平对称、更亮、更暗这六种形式的增强</li>
+				</ol>
+				<br>上面的全部<font class="red">参数</font>填写完毕后，点击程序左上角<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/run.png">按钮进行<b>训练</b>。<br><br>
+				<ul>
+					<li><font class="blue">Loss曲线</font>：<b> 图 3-7 </b>中蓝色框所示，在训练过程中可以实时监控Loss随着Epoch的变化关系</li>
+				</ul>
+			</section>	
+			<section id="OD-test-section" class="section">
+				<h3 class="center_title">测试阶段</h3>
+				<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-test.png"/>
+				<div class="img-label">图 3-8：目标检测——测试阶段</div>
+				目标检测的<b>测试</b>阶段如<b> 图 3-8 </b>所示，各模块的名字和功能已经标示在图上。 <br><br>
+				<ol>
+					<li><font class="red">选择图片目录</font>：选择数据所在目录，即VOC 2007标准目录格式的根目录</li>
+					<li><font class="red">Select</font>：选择模型所在目录，会自动识别该目录下所有符合条件的模型，并在左侧Model Name下拉框中显示</li>
+					<li><font class="red">GPU_ID</font>下拉框：选择测试所使用的GPU</li>
+					<li><font class="red">Model_Name</font>下拉框：从识别出的模型中选择一个</li>
+					<li><font class="red">Network</font>下拉框：选择Model Name中所选模型使用的网络结构</li>
+					<li><font class="red">Threshold</font>滑动条：选择测试所使用的阈值</li>
+				</ol>
+				<br>上面的全部<font class="red">参数</font>填写完毕后，点击程序左上角<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/run.png">按钮进行<b>测试</b>。<br><br>
+				<ul>
+					<li><font class="yellow">单类别性能指标</font>：</li>
+						<blockquote>
+							<li type="square"><font class="green">Class</font>下拉框：用于选择类别，即标注框的名字，之后会在<b> 图 3-8 </b>蓝色框所在位置显示对于该类别的测试结果</li>
+							<li type="square"><font class="blue">BBox Level</font>：标注框层面，即目标检测的测试指标，以PR曲线呈现，最终用平均准确率AP表示对于该类标注框的测试结果。如对于blackslag，PR曲线中纵轴表示Precision（查准率），即从所有测试集的所有标注框中检测出stain标注框的概率，横轴表示Recall（查全率），即从所有测试集的所有类名为stain的标注框中检测出stain标注框的比率，PR曲线下的面积即为AP。</li>
+							<li type="square"><font class="blue">Image Level</font>：图片层面，即图像分类的测试指标，包括含有该类别的图片总数，检测出该类别的图片数，以及对于该类别的准确率。如对于blackslag，在所有测试集中有223张图片包含了stain的标注框，其中检测出了214张，准确率为96%。</li>
+						</blockquote>
+					<li><font class="yellow">整体性能指标</font>：</li>
+						<blockquote>
+							<li type="square"><font class="blue">Whole_images</font>：本次用于测试的所有图片数</li>
+							<li type="square"><font class="blue">Whole_detected</font>：测试集中检测出目标的图片数</li>
+							<li type="square"><font class="blue">Detect_rate</font>：测试集检测率</li>
+							<li type="square"><font class="blue">Whole_correct</font>：测试集中检测正确的图片数</li>
+							<li type="square"><font class="blue">Correct_rate</font>：测试集正确率</li>
+							<li type="square"><font class="blue">Whole_false</font>：测试集中过检的图片数</li>
+							<li type="square"><font class="blue">False_rate</font>：测试集过检率</li>
+							<li type="square"><font class="blue">Whole_miss</font>：测试集中漏检的图片数</li>
+							<li type="square"><font class="blue">Miss_rate</font>：测试集漏检率</li>
+						</blockquote>
+					<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击右下角<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-test-detailbtn.png">按钮后即可查看测试的<font class="green">详细结果</font>，包括标注框层面的Confusion Matrix，以及图片层面的对应每种类别的性能指标，如<b> 图 3-9 </b>：<br><br>
+					<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-test_CM.png"/>
+					<div class="img-label">图 3-9：目标检测——测试结果</div>
+					<li><font class="blue">标注框层面</font>：</li>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对每一种类别的标注框进行统计，计算出各类别标注框的正确率、错误率和漏检率，最后一行是对所有标注框的整体的性能指标。
+						<blockquote>
+							<li type="square"><b>行</b>：共21行，前20行为类别名，最后一行<font class="blue">Sum</font>表示整体性能指标。</li>
+							<li type="square"><b>列</b>：共27列，前20列为类别名，21列<font class="blue">Sum</font>表示属于该行类别的标注框的总数，22列<font class="blue">Correct_Num</font>表示在所有该类别的标注框中预测正确的个数，23列<font class="red">Correct_Rate</font>表示该类别标注框预测的正确率，24列<font class="blue">Miss_Num</font>表示在所有该类别的标注框中漏检的个数，25列<font class="red">Miss_Rate</font>表示该类别标注框的漏检率，26列<font class="blue">False_Num</font>表示在所有该类别的标注框中预测错误的个数，27列<font class="red">False_Rate</font>表示该类别标注框的错检率。</li>
+						</blockquote>
+					<li><font class="blue">图片层面</font>：</li>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对每一张图片进行统计，计算出包含不同类别标注框的图片的个数以及各项性能指标，最后一行是对所有图片整体的性能指标。
+						<blockquote>
+							<li type="square"><b>行</b>：共21行，前20行为类别名，最后一行<font class="blue">Sum</font>表示图片整体性能指标。</li>
+							<li type="square"><b>列</b>：共5列，第1列<font class="blue">Sum</font>表示包含该行类别标注框的图片总数，第2列<font class="blue">Correct_Num</font>表示在所有包含该类别标注框的图片中检测出该类别目标的个数，第3列<font class="red">Correct_Rate</font>表示包含该类别标注框的图片的检测正确率，第4列<font class="blue">Detected_Num</font>表示在所有包含该类别标注框的图片中检测出目标的个数，第5列<font class="red">Detected_Rate</font>表示包含该类别标注框的图片的检测率。</li>
+						</blockquote>
+				</ul>
+			</section>	
+			<section id="OD-predict_multi-section" class="section">
+				<h3 class="center_title">检测阶段</h3>
+				<img class="image" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/OD-predict_multi.png"/>
+				<div class="img-label">图 3-10：目标检测——检测阶段</div>
+				目标检测的<b>检测</b>阶段如<b> 图 3-10 </b>所示，各模块的名字和功能已经标示在图上。 <br><br>
+				<ol>
+					<li><font class="red">图片目录</font>：选择待检测的图片目录</li>
+					<li><font class="red">Select</font>：选择模型所在目录，会自动识别该目录下所有符合条件的模型，并在左侧<font class="red">Model_Name</font>下拉框中显示</li>
+					<li><font class="red">Model_Name</font>下拉框：从识别出的模型中选择一个</li>
+					<li><font class="red">Network</font>下拉框：选择<font class="red">Model_Name</font>中所选模型使用的网络结构</li>
+					<li><font class="red">Threshold</font>：阈值，当检测框的置信度低于该阈值时，不予考虑</li>
+				</ol>
+				<br>上面的全部<font class="red">参数</font>填写完毕后，点击程序左上角<img class="button" src="https://rebornas.blob.core.windows.net/rebornhome/about/ML_Platform/run.png">按钮进行<b>检测</b>。<br><br>
+				<ul>
+					<li><font class="blue">检测结果</font>：在原图像上将所有检测出来的置信度高于阈值的矩形框画出来，并标上名字和置信度。可以通过<b> 图 3-10 </b><font class="green">绿色</font>框中的四个按钮切换图片。下方显示当前图片编号以及图片总数</li>
+				</ul>
+			</section>	
+		</section>	
+	</div>
+</div>
+<!-- </section> -->
+
+
+<!-- Footer Section -->
+<footer>
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-5 col-md-offset-1 col-sm-6">
+				<h3>By Reborn</h3>
+				<p>A Graduate Student in ECNU <br> A consultant in Microsoft China Co., Ltd. Shanghai</p>
+				<div class="footer-copyright">
+					<p><br> Copyright &copy; 2020. Reborn All rights reserved.</p>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-md-offset-1 col-sm-6">
+				<h3>Talk to me</h3>
+				<p><i class="fa fa-envelope"></i> <a class="fa" href="mailto:someone@example.com">1486013862@qq.com</a></p>
+				<p><i class="fa fa-globe"></i> <a class="fa" href="https://github.com/ReBoRn8888" target="_blank">github.com/ReBoRn8888</a></p>
+				<p><i class="fa fa-rss"></i> <a class="fa" href="https://www.reborn8888.com" target="_blank">www.reborn8888.com</a></p>
+			</div>
+
+		</div>
+	</div>
+</footer>
+
+<!-- Back top -->
+<a href="#back-top" class="go-top"><i class="fa fa-angle-up"></i></a>
+
+<!-- SCRIPTS -->
+
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/jquery.parallax.js"></script>
+<script type="text/javascript" src="../js/custom.js"></script>
+<script type="text/javascript" src="../js/particles.min.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/APlayer.min.js"></script> 
+<script type="text/javascript" src="../js/main.js"></script>
+<script type="text/javascript" src="../plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script> 
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>Azure 学习笔记 VI —— Speech to Text | Reborn</title><meta name="description" content="Azure 学习笔记 VI —— Speech to Text"><meta name="keywords" content="Microsoft,Azure,Speech"><meta name="author" content="Reborn"><meta name="copyright" content="Reborn"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="baidu-site-verification" content="Vkh2aRZcUl"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Azure 学习笔记 VI —— Speech to Text"><meta name="twitter:description" content="Azure 学习笔记 VI —— Speech to Text"><meta name="twitter:image" content="https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/STT.png"><meta property="og:type" content="article"><meta property="og:title" content="Azure 学习笔记 VI —— Speech to Text"><meta property="og:url" content="https://reborn8888.github.io/2020/12/28/Azure-6-STT/"><meta property="og:site_name" content="Reborn"><meta property="og:description" content="Azure 学习笔记 VI —— Speech to Text"><meta property="og:image" content="https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/STT.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = '2'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"><link rel="canonical" href="https://reborn8888.github.io/2020/12/28/Azure-6-STT/"><link rel="prev" title="Azure 学习笔记 VII —— Text to Speech" href="https://reborn8888.github.io/2020/12/29/Azure-7-TTS/"><link rel="next" title="Azure 学习笔记 V —— Personalizer" href="https://reborn8888.github.io/2020/09/25/Azure-5-Personalizer/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
+</head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Reborn</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://rebornas.blob.core.windows.net/rebornhome/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">33</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">34</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">3</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-azure-speech-to-text"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text"> 什么是 Azure Speech to Text</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text"> 支持的编程语言</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text"> 快速入门</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc_mobile_items-number">3.1.</span> <span class="toc_mobile_items-text"> 相关资源</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#%E8%BE%93%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="toc_mobile_items-number">3.2.</span> <span class="toc_mobile_items-text"> 输入方式</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#custom-speech"><span class="toc_mobile_items-number">4.</span> <span class="toc_mobile_items-text"> Custom Speech</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#data"><span class="toc_mobile_items-number">4.1.</span> <span class="toc_mobile_items-text"> Data</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#testing"><span class="toc_mobile_items-number">4.2.</span> <span class="toc_mobile_items-text"> Testing</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#deployment"><span class="toc_mobile_items-number">4.3.</span> <span class="toc_mobile_items-text"> Deployment</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-azure-speech-to-text"><span class="toc-number">1.</span> <span class="toc-text"> 什么是 Azure Speech to Text</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text"> 支持的编程语言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-number">3.</span> <span class="toc-text"> 快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-number">3.1.</span> <span class="toc-text"> 相关资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="toc-number">3.2.</span> <span class="toc-text"> 输入方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#custom-speech"><span class="toc-number">4.</span> <span class="toc-text"> Custom Speech</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#data"><span class="toc-number">4.1.</span> <span class="toc-text"> Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#testing"><span class="toc-number">4.2.</span> <span class="toc-text"> Testing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deployment"><span class="toc-number">4.3.</span> <span class="toc-text"> Deployment</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/STT.png)"><div id="post-info"><div id="post-title"><div class="posttitle">Azure 学习笔记 VI —— Speech to Text</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2020-12-28<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2021-05-07</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">966</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>阅读时长: 3 分钟</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><html><head>
+    </head><body><div id="aplayer-hkxmmtPr" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="64574" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="false" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
+<h1 id="什么是-azure-speech-to-text"><a class="markdownIt-Anchor" href="#什么是-azure-speech-to-text"></a> 什么是 Azure Speech to Text</h1>
+<p><strong>Azure Speech to Text</strong> 官网：<a href="https://azure.microsoft.com/en-us/services/cognitive-services/speech-to-text/" target="_blank" rel="noopener">https://azure.microsoft.com/en-us/services/cognitive-services/speech-to-text/</a><br>
+<img alt data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/STTHomePage.png" class="lazyload"></p>
+<p><strong>Azure Speech to Text</strong>，简称<strong>STT</strong>，是 <a href="https://azure.microsoft.com/en-us/services/cognitive-services/" target="_blank" rel="noopener">Azure Cognitive Service</a> 中的一项 Speech Service，可以用 Azure 中已经预训练好的语言模型或者自定义的模型来将语音转化为文本，常用于 ChatBot 中的数据预处理阶段，将音频信号翻译为计算机可以理解的文本，便于后续的处理，比如后续用 <a href="https://www.luis.ai/" target="_blank" rel="noopener">LUIS</a> 提取意图（Intent）和实体（Entity），进而控制 Bot 进行相应的操作。</p>
+<p><strong>Azure Speech to Text</strong> 具有以下特点：</p>
+<ul>
+<li>支持超过<strong>85</strong>种语言：<a href="https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/language-support#speech-to-text" target="_blank" rel="noopener">Language support</a></li>
+<li><strong>高精度</strong>的翻译：使用业界主流的高精度算法，达到 state-of-the-art 效果</li>
+<li>可<strong>定制化</strong>语言模型：<a href="#custom-speech">Custom Speech</a></li>
+<li><strong>灵活</strong>的部署：可部署在云端或者通过容器部署在边缘设备中</li>
+</ul>
+<h1 id="支持的编程语言"><a class="markdownIt-Anchor" href="#支持的编程语言"></a> 支持的编程语言</h1>
+<ul>
+<li>C#</li>
+<li>C++</li>
+<li>Go</li>
+<li>Java</li>
+<li>JavaScript</li>
+<li>Objective-C / Swift</li>
+<li>Python</li>
+<li>REST API</li>
+</ul>
+<h1 id="快速入门"><a class="markdownIt-Anchor" href="#快速入门"></a> 快速入门</h1>
+<h2 id="相关资源"><a class="markdownIt-Anchor" href="#相关资源"></a> 相关资源</h2>
+<blockquote>
+<p>此处我们以 C# 为例，其他语言可从对应的官方 Github Repo 中找到相应的代码</p>
+</blockquote>
+<ul>
+<li>Official Tutorial：<a href="https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=script%2Cbrowser%2Cwindowsinstall&pivots=programming-language-csharp" target="_blank" rel="noopener">Microsoft-Doc</a></li>
+<li>Source Code：<a href="https://github.com/Azure-Samples/cognitive-services-speech-sdk/tree/master/quickstart/csharp/dotnet" target="_blank" rel="noopener">Github-Repo</a></li>
+<li>根据 Tutorial 自己实现的 Sample Code：<a href="https://dev.azure.com/RebornAzureLearning/AzureSpeechService/_git/STT" target="_blank" rel="noopener">DevOps-Repo</a></li>
+</ul>
+<h2 id="输入方式"><a class="markdownIt-Anchor" href="#输入方式"></a> 输入方式</h2>
+<p><strong>Azure Speech to Text</strong> 支持两种数据输入的方式：</p>
+<ol>
+<li>麦克风：<code>AudioConfig.FromDefaultMicrophoneInput()</code></li>
+<li>wav 音频文件（必须且只能是 wav 文件，其他格式需要通过工具转换为 wav 后方可识别）：<code>AudioConfig.FromWavFileInput("PathToFile.wav")</code></li>
+</ol>
+<blockquote>
+<p>注：以上两种方法只支持单个语句的识别，即末尾沉默时认定为是一个语句的结束，且最长单句时间限定为15秒。若要连续识别，可通过调用<code>await recognizer.StartContinuousRecognitionAsync();</code>来实现。（<a href="https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/get-started-speech-to-text?tabs=script%2Cbrowser%2Cwindowsinstall&pivots=programming-language-csharp#continuous-recognition" target="_blank" rel="noopener">Tutorial-ContinuousRecognition</a>）</p>
+</blockquote>
+<h1 id="custom-speech"><a class="markdownIt-Anchor" href="#custom-speech"></a> Custom Speech</h1>
+<p><img alt data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/CustomSpeechHomePage.png" class="lazyload"></p>
+<p><a href="https://speech.microsoft.com/customspeech" target="_blank" rel="noopener">Custom Speech</a> 是 Azure 提供的用于训练自定义语言模型的一个平台。具有用户友好型UI，对于没有 AI 相关背景的用户也能流畅使用。</p>
+<p>虽然 Azure 上已经自带了很多通用的语言模型，对于大部分常见场景都有覆盖，效果也都还不错，但对于某些特定场景，比如某些专业领域的词汇就会有所欠缺。因此我们需要针对这些特定的场景进行定制化的优化，这就需要用我们自己的数据去 finetune 已有的模型，来达到特定场景下的高性能要求。</p>
+<p>下图展示了 <strong>Custom Speech</strong> 的 Workflow：<br>
+<img alt data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/CustomSpeechOverview.png" class="lazyload"></p>
+<p><strong>Custom Speech</strong> 提供了如下功能模块：<br>
+<img alt data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/CustomSpeechModules.png" class="lazyload"></p>
+<ul>
+<li><strong><a href="#data">Data</a></strong>：用于数据集的上传，支持单音频用于测试，或者音频+人工标注的文本用于训练</li>
+<li><strong><a href="#testing">Testing</a></strong>：可直接用 Azure 自带的模型，或者 customized 的模型进行测试</li>
+<li><strong>Training</strong>：通过音频和对应的标注文本进行 finetune 训练</li>
+<li><strong><a href="#deployment">Deployment</a></strong>：将训练好的模型进行部署，以便调用</li>
+<li><strong>Editor</strong>：用于对已上传的数据进行标注</li>
+</ul>
+<h2 id="data"><a class="markdownIt-Anchor" href="#data"></a> Data</h2>
+<ul>
+<li>
+<p>支持的数据类型：<a href="https://docs.microsoft.com/en-gb/azure/cognitive-services/speech-service/how-to-custom-speech-test-and-train#data-types" target="_blank" rel="noopener">Link</a></p>
+</li>
+<li>
+<p>训练数据存放格式：<br>
+<img alt data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/TrainingSetDirStructure.png" class="lazyload"></p>
+</li>
+<li>
+<p>训练数据标注格式：<br>
+<img alt data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/DataLabelDetails.png" class="lazyload"></p>
+</li>
+<li>
+<p>一些开源数据集推荐：<a href="http://www.openslr.org/resources.php" target="_blank" rel="noopener">OpenSLR</a></p>
+</li>
+</ul>
+<blockquote>
+<p>我们将下载下来的开源数据集按照如上格式整理完成后就可以上传到 Custom Speech 进行训练了（当然也可以直接上传纯音频数据，然后使用 Custom Speech 自带的 <strong>Editor</strong> 进行标注）。</p>
+</blockquote>
+<h2 id="testing"><a class="markdownIt-Anchor" href="#testing"></a> Testing</h2>
+<p>Word Error Rate（WER）是业界用于评估语言模型的标准指标，公式如下：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>W</mi><mi>E</mi><mi>R</mi><mo>=</mo><mfrac><mrow><mi>I</mi><mo>+</mo><mi>D</mi><mo>+</mo><mi>S</mi></mrow><mi>N</mi></mfrac><mo>∗</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">WER = \frac{I+D+S}{N} * 100%,
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span></span></span></span></span></p>
+<p>其中：</p>
+<ul>
+<li><strong>Insertion (I)</strong>：Prediction 相对于 Ground Truth 多出来的单词数</li>
+<li><strong>Deletion (D)</strong>：Prediction 相对于 Ground Truth 缺少的单词数</li>
+<li><strong>Substitution (S)</strong>：Prediction 相对于 Ground Truth 错误的单词数</li>
+<li><strong>N</strong>：总单词数</li>
+</ul>
+<p>一个形象的例子如下：<br>
+<img alt data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/IDSdetails.png" class="lazyload"></p>
+<h2 id="deployment"><a class="markdownIt-Anchor" href="#deployment"></a> Deployment</h2>
+<p>将训练完的模型部署后，可以得到三个 Endpoints 信息：</p>
+<ul>
+<li><strong>Subscription key</strong></li>
+<li><strong>Service Region</strong></li>
+<li><strong>Endpoint ID</strong></li>
+</ul>
+<p>在 C# 代码中如下调用即可：</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">csharp</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight csharp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> config = SpeechConfig.FromSubscription(<span class="string">"YourSubscriptionKey"</span>, <span class="string">"YourServiceRegion"</span>);</span><br><span class="line">config.EndpointId = <span class="string">"YourEndpointId"</span>;</span><br><span class="line"><span class="keyword">var</span> reco = <span class="keyword">new</span> SpeechRecognizer(config);</span><br></pre></td></tr></tbody></table></figure></div></body></html></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Reborn</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://reborn8888.github.io/2020/12/28/Azure-6-STT/">https://reborn8888.github.io/2020/12/28/Azure-6-STT/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ReBoRn8888.github.io">Reborn</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Microsoft/">Microsoft    </a><a class="post-meta__tags" href="/tags/Azure/">Azure    </a><a class="post-meta__tags" href="/tags/Speech/">Speech    </a></div><div class="post_share"><div class="social-share" data-image="https://rebornas.blob.core.windows.net/rebornhome/AzureSTT/STT.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="https://i.loli.net/2019/12/08/sLmoV1atujlQPRY.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="https://i.loli.net/2019/12/08/HhJfxq64XDn3LMK.png" alt="支付寶"><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/12/29/Azure-7-TTS/"><img class="prev_cover lazyload" data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureTTS/TTSLogo.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>Azure 学习笔记 VII —— Text to Speech</span></div></a></div><div class="next-post pull_right"><a href="/2020/09/25/Azure-5-Personalizer/"><img class="next_cover lazyload" data-src="https://rebornas.blob.core.windows.net/rebornhome/AzurePersonalizer/AzurePersonalizerLogo.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>Azure 学习笔记 V —— Personalizer</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/12/30/Azure-8-Speech-Translation/" title="Azure 学习笔记 VIII —— Speech Translation"><img class="relatedPosts_cover lazyload"data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureSpeechTranslation/SpeechTranslationLogo.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2021-09-14</div><div class="relatedPosts_title">Azure 学习笔记 VIII —— Speech Translation</div></div></a></div><div class="relatedPosts_item"><a href="/2020/12/29/Azure-7-TTS/" title="Azure 学习笔记 VII —— Text to Speech"><img class="relatedPosts_cover lazyload"data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureTTS/TTSLogo.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2021-09-14</div><div class="relatedPosts_title">Azure 学习笔记 VII —— Text to Speech</div></div></a></div><div class="relatedPosts_item"><a href="/2021/05/19/Azure笔记/" title="Azure笔记"><img class="relatedPosts_cover lazyload"data-src="https://rebornas.blob.core.windows.net/rebornhome/Azure.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2021-09-14</div><div class="relatedPosts_title">Azure笔记</div></div></a></div><div class="relatedPosts_item"><a href="/2020/09/25/Azure-5-Personalizer/" title="Azure 学习笔记 V —— Personalizer"><img class="relatedPosts_cover lazyload"data-src="https://rebornas.blob.core.windows.net/rebornhome/AzurePersonalizer/AzurePersonalizerLogo.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2021-09-14</div><div class="relatedPosts_title">Azure 学习笔记 V —— Personalizer</div></div></a></div><div class="relatedPosts_item"><a href="/2020/09/10/Azure-4-Cognitive-Search/" title="Azure 学习笔记 IV —— Cognitive-Search"><img class="relatedPosts_cover lazyload"data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureCognitiveSearch/AzureCognitiveSearchLogo.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2021-09-14</div><div class="relatedPosts_title">Azure 学习笔记 IV —— Cognitive-Search</div></div></a></div><div class="relatedPosts_item"><a href="/2020/05/12/Azure-3-App-Service/" title="Azure 学习笔记 III —— Azure App Service"><img class="relatedPosts_cover lazyload"data-src="https://rebornas.blob.core.windows.net/rebornhome/AzureAppService/AzureAppServiceLogo.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2021-09-14</div><div class="relatedPosts_title">Azure 学习笔记 III —— Azure App Service</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = false == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'2boKvi6UsSeUABpVH99z87cj-gzGzoHsz',
+  appKey:'instDcdLyY9Ace9gcgI1eQh3',
+  placeholder:'Please leave your footprints',
+  avatar:'monsterid',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'en',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Reborn</div><div class="framework-info"><span>驱动 </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <u><a href="https://reborn8888.github.io/">Blog</a></u>!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">簡</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script>$(function () {
+  $('span.katex-display').wrap('<div class="katex-wrap"></div>')
+})</script><script id="ribbon_piao" mobile="false" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/piao.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
