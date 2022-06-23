@@ -38,7 +38,7 @@
     "markdown-it-katex": "^2.0.3",
     "pug": ">=3.0.1",
     "set-value": ">=4.0.1",
-    "shell-quote": "^1.7.2",
+    "shell-quote": "^1.7.3",
     "striptags": ">=3.2.0"
   },
   "devDependencies": {
